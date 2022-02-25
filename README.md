@@ -60,7 +60,7 @@ Definition of the different states and their transition (transition functions)
 
 ## Additional Links
 ### Trello
-[Link url] (https://trello.com)
+[Link url] (https://trello.com/b/mtCye6Tb/beersdragons)
 
 ### Slides
 [Link Slides.com] (https://slides.com)
