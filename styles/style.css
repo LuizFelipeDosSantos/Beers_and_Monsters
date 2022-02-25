@@ -1,11 +1,15 @@
-body {
+  body {
     padding: 0;
     text-align: center;
   }
   
   .game-intro {
-    float: left;
     padding: 0% 10%;
+    background-color: lightgray ;
+  }
+
+  .game-intro h1 {
+    font-size: 30px;
   }
   
   .game-intro p {
@@ -13,17 +17,25 @@ body {
     font-family: "Verdana"
   }
   
-  .logo-img {
-    width: 350px;
+  .class-choose {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
   }
-  
-  .arrows-img {
-    width: 150px;
+
+  .class-choose #wizard {
+    width: 15vw;
+    height: 30vh;
+  }
+
+  .class-choose #knight {
+    width: 30vw;
+    height: 45vh;
   }
   
   body button {
     font-size: 30px;
-    background-color: #870007;
+    background-color: black;
     color: #fff;
     padding: 20px 40px;
     border: 0;
@@ -35,5 +47,21 @@ body {
   #game-board {
       float: left;
       padding: 20px 0px;
+      display: none;
+  }
+
+  .game-over {
+    padding: 0% 10%;
+    background-color: lightgray ;
+    display: none;
+  }
+
+  .game-over h1 {
+    font-size: 30px;
+  }
+  
+  .game-over p {
+    font-size: 18px;
+    font-family: "Verdana"
   }
   
