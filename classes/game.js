@@ -4,6 +4,7 @@ let orcImg;
 let heartImg;
 let dice1Img;
 let treasureImg;
+let forestImg;
 let buttonAttack;
 let gameIsRunning = false;
 const mapSize = 3;
@@ -14,12 +15,14 @@ function drawMap() {
     for (let i = 0; i < mapSize; i++) {
         for (let j = 0; j < mapSize; j++) {
             const x = i * areaSize;
-            const y = j * areaSize; 
-            stroke(0);
+            const y = j * areaSize;
+
+            image(forestImg, x, y, areaSize, areaSize);
+            noFill();
             rect(x, y, areaSize, areaSize);
         }
     }
-
+    
     image(knightImg, 10, 25, 130, 110);
     image(treasureImg, 330, 35, 80, 80);
     image(knightImg, 650, 220, 300, 250);
@@ -42,6 +45,7 @@ function preload() {
     heartImg = loadImage('../assets/heart.png');
     dice1Img = loadImage('../assets/dice_1.png');
     treasureImg = loadImage('../assets/treasure.png');
+    forestImg = loadImage('../assets/forest.png');
 }
   
 function setup() {
