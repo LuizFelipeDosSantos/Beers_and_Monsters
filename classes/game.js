@@ -2,6 +2,8 @@ let playerChoose;
 let knightImg;
 let orcImg;
 let heartImg;
+let dice1Img;
+let treasureImg;
 let buttonAttack;
 let gameIsRunning = false;
 const mapSize = 3;
@@ -19,14 +21,16 @@ function drawMap() {
     }
 
     image(knightImg, -100, -10, 300, 200);
-    image(knightImg, 600, 200, 600, 400);
-    image(orcImg, 900, 0, 400, 300);
+    image(treasureImg, 330, 35, 80, 80);
+    image(knightImg, 500, 180, 600, 400);
+    image(orcImg, 850, -20, 400, 300);
     image(heartImg, 480, 350, 32, 32);
     fill(255,0,0);
     rect(520, 350, 150, 20);
     image(heartImg, 1100, 10, 32, 32);
     rect(1140, 10, 150, 20);
     fill(255);
+    image(dice1Img, 1100, 300, 100, 100);
     if (gameIsRunning) {
         button.show();
     }
@@ -36,6 +40,8 @@ function preload() {
     knightImg = loadImage('../assets/knight.png');
     orcImg = loadImage('../assets/orc.png');
     heartImg = loadImage('../assets/heart.png');
+    dice1Img = loadImage('../assets/dice_1.png');
+    treasureImg = loadImage('../assets/treasure.png');
 }
   
 function setup() {
