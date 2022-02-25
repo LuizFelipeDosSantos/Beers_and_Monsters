@@ -20,20 +20,20 @@ function drawMap() {
         }
     }
 
-    image(knightImg, -100, -10, 300, 200);
+    image(knightImg, 10, 25, 130, 110);
     image(treasureImg, 330, 35, 80, 80);
-    image(knightImg, 500, 180, 600, 400);
-    image(orcImg, 850, -20, 400, 300);
-    image(heartImg, 480, 350, 32, 32);
+    image(knightImg, 650, 220, 300, 250);
+    image(orcImg, 950, 10, 180, 230);
+    image(heartImg, 480, 250, 32, 32);
     fill(255,0,0);
-    rect(520, 350, 150, 20);
+    rect(520, 250, 150, 20);
     image(heartImg, 1100, 10, 32, 32);
     rect(1140, 10, 150, 20);
     fill(255);
     image(dice1Img, 1100, 300, 100, 100);
-    if (gameIsRunning) {
+    //if (gameIsRunning) {
         button.show();
-    }
+    //}
 }
 
 function preload() {
