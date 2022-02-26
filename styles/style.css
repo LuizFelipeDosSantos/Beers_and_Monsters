@@ -6,7 +6,6 @@
   .game-intro {
     padding: 0% 10%;
     background-color: lightgray ;
-    display: none;
   }
 
   .game-intro h1 {
@@ -48,6 +47,7 @@
   #game-board {
       float: left;
       padding: 20px 0px;
+      display: none;
   }
 
   .game-over {

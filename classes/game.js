@@ -12,7 +12,7 @@ const areaSize = 150;
 
 
 function drawMap() {
-    for (let i = 0; i < mapSize; i++) {
+    /*for (let i = 0; i < mapSize; i++) {
         for (let j = 0; j < mapSize; j++) {
             const x = i * areaSize;
             const y = j * areaSize;
@@ -21,11 +21,10 @@ function drawMap() {
             noFill();
             rect(x, y, areaSize, areaSize);
         }
-    }
+    }*/
     
-    image(knightImg, 10, 25, 130, 110);
-    image(treasureImg, 330, 35, 80, 80);
-    image(knightImg, 650, 220, 300, 250);
+    background(forestImg);
+    image(knightImg, 0, 220, 300, 250);
     image(orcImg, 950, 10, 180, 230);
     image(heartImg, 480, 250, 32, 32);
     fill(255,0,0);
@@ -34,9 +33,9 @@ function drawMap() {
     rect(1140, 10, 150, 20);
     fill(255);
     image(dice1Img, 1100, 300, 100, 100);
-    //if (gameIsRunning) {
+    if (gameIsRunning) {
         button.show();
-    //}
+    }
 }
 
 function preload() {
