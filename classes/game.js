@@ -1,7 +1,7 @@
 let playerChoose;
 let player;
 let knightImg, wizardImg;
-let orc;
+let enemy;
 let orcImg;
 let heartImg;
 let dice1Img;
@@ -9,14 +9,18 @@ let forestImg;
 let forestImgNight;
 let buttonAttack;
 let gameIsRunning = false;
+let isBattling = false;
 let initialX = 0;
 let initialY = 220;
 let level = 1;
 
-function changeLevel() {
+function loadLevel() {
     switch (level) {
         case 1:
             background(forestImg);
+            if (enemy === undefined) {
+                enemy = new Orc(orcImg, player.x + 500, player.y, 180, 230);
+            }
             break;
         case 2:
             background(forestImgNight);
@@ -37,44 +41,51 @@ function setup() {
     const canvas = createCanvas(windowWidth - 30, windowHeight - 80);
     canvas.parent('game-board');
 
-    button = createButton('Attack');
-    button.position(480, 50);
-    button.hide();
+    buttonAttack = createButton('Attack');
+    buttonAttack.hide();
 
     noLoop();
 }
   
-/*image(heartImg, 480, 250, 32, 32);
-    fill(255,0,0);
-    rect(520, 250, 150, 20);
-    image(heartImg, 1100, 10, 32, 32);
-    rect(1140, 10, 150, 20);
-    fill(255);
-    image(dice1Img, 1100, 300, 100, 100);
-    if (gameIsRunning) {
-        button.show();
-    }*/
-
-
 function draw() {
     if (gameIsRunning) {
-        changeLevel();
+        loadLevel();
         player.draw();
 
-        if (keyIsDown(LEFT_ARROW)) {
-            player.moveLeft();
-        } else if (keyIsDown(RIGHT_ARROW)) {
-            player.moveRight();
-        }
+        if (!isBattling) {
+            if (keyIsDown(LEFT_ARROW)) {
+                player.moveLeft();
+            } else if (keyIsDown(RIGHT_ARROW)) {
+                player.moveRight();
+            }
 
-        if (player.x > width) {
-            level++;
-            player.x = initialX;
-        }
+            if (player.x > width) {
+                level++;
+                player.x = initialX;
+            }
+    
+            if (player.x > 300) {
+                enemy.x =  player.x + 500;
+                enemy.draw();
+                isBattling = true;
+            }
+        } else {
+            enemy.draw();
+            buttonAttack.position(player.x + 20, player.y + 300);
+            buttonAttack.show();
 
-        if (player.x > 300) {
-            orc = new Orc(orcImg, player.x + 500, player.y, 180, 230);
-            orc.draw();
+            //Player's Life
+            image(heartImg, player.x, player.y - 50, 32, 32);
+            fill(255,0,0);
+            rect(player.x + 40, player.y - 50, player.health * 5, 20);
+
+            //Enemy's Life
+            image(heartImg, enemy.x, enemy.y - 50, 32, 32);
+            rect(enemy.x + 40, enemy.y - 50, enemy.health * 5, 20);
+
+            //Dice
+            fill(255);
+            image(dice1Img, player.x + 300, player.y, 100, 100);
         }
     }
 }
