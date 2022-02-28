@@ -7,16 +7,22 @@ let knightWalkImg0, knightWalkImg1, knightWalkImg2, knightWalkImg3, knightWalkIm
     knightWalkImg5, knightWalkImg6, knightWalkImg7, knightWalkImg8, knightWalkImg9;
 let knightAttackImg0, knightAttackImg1, knightAttackImg2, knightAttackImg3, knightAttackImg4,
     knightAttackImg5, knightAttackImg6, knightAttackImg7, knightAttackImg8, knightAttackImg9;
-let knightAttackAnimation = [];
 let knightHealthBarWidth = 250;
 
 let wizardImg;
 let wizardWalkImg0, wizardWalkImg1, wizardWalkImg2, wizardWalkImg3, wizardWalkImg4;
+let wizardAttackImg0, wizardAttackImg1, wizardAttackImg2, wizardAttackImg3, wizardAttackImg4;
 let wizardHealthBarWidth = 200;
+
+let playerAttackAnimation = [];
 
 let enemy;
 let orcImg;
+let orcAttackImg0, orcAttackImg1, orcAttackImg2, orcAttackImg3, orcAttackImg4, orcAttackImg5,
+    orcAttackImg6, orcAttackImg7, orcAttackImg8, orcAttackImg9, orcAttackImg10, orcAttackImg11;
 let orcHealthBarWidth = 150;
+
+let enemyAttackAnimation = [];
 
 let trollImg;
 let trollHealthBarWidth = 200;
@@ -31,15 +37,16 @@ let heartImg, dice1Img, dice2Img, dice3Img, dice4Img, dice5Img, dice6Img, dice;
 
 let forestImg, ruinsImg, graveyardImg, castleImg;
 
-let buttonAttack, buttonEnemyAttack;
+let buttonAttack, buttonEnemyAttack, attackDamage;
 
 let gameIsRunning = false;
 let isBattling = false;
 let battleIsFinished = false;
 let enemyIsDead = false;
 let enemyAttacked = false;
-let animationIsRunning = false;
-let animationIndex = 0;
+let animationPlayerAttackIsRunning = false;
+let animationEnemyAttackIsRunning = false;
+let animationIndex = -1;
 
 let initialX = 0;
 let initialY = 220;
@@ -50,12 +57,15 @@ function loadLevel() {
             background(forestImg);
             if (!(enemy instanceof Orc)) {
                 enemy = new Orc(orcImg, player.x + 500, player.y, 180, 260);
+                enemyAttackAnimation = [orcAttackImg0, orcAttackImg1, orcAttackImg2, orcAttackImg3, orcAttackImg4, orcAttackImg5,
+                                        orcAttackImg6, orcAttackImg7, orcAttackImg8, orcAttackImg9, orcAttackImg10, orcAttackImg11];
             }
             break;
         case 2:
             background(ruinsImg);
             if (!(enemy instanceof Troll)) {
                 enemy = new Troll(trollImg, player.x + 500, player.y - 100, 400, 350);
+                enemyAttackAnimation = [];
             }
             break;
         case 3:
@@ -102,38 +112,81 @@ function rollDice() {
 }
 
 function playerAttack() {
-    const diceResult = rollDice();
+    if (!animationPlayerAttackIsRunning) {
+        const diceResult = rollDice();
 
-    fill(255);
-    image(dice, player.x + 300, player.y, 100, 100);
+        fill(255);
+        image(dice, player.x + 300, player.y, 100, 100);
+    
+        attackDamage = player.attack() * diceResult;
+    
+        if (animationIndex < 0) {
+            animationIndex = 0;
+            animationPlayerAttackIsRunning = true;
+            frameRate(30);
+        }
+    }
 
-    //knightAttackAnimation;
-    let attackDamage = player.attack() * diceResult;
+    if (animationIndex >= 0){
+        if (animationIndex >= playerAttackAnimation.length) {
+            animationPlayerAttackIsRunning = false;
+            animationIndex = -1;
+            frameRate(60);
+        } else {
+            image(playerAttackAnimation[animationIndex], player.x, player.y, player.width, player.height);
+            animationIndex++;
+        }
+    }
 
-    enemy.receiveDamage(attackDamage);
+    if (!animationPlayerAttackIsRunning) {
+        enemy.receiveDamage(attackDamage);
 
-    if (enemy.isDead()) {
-        enemy.health = 0;
-        enemyIsDead = true;
-    } else {
-        turn = 1;
+        if (enemy.isDead()) {
+            enemy.health = 0;
+            enemyIsDead = true;
+        } else {
+            turn = 1;
+        }    
     }
 }
 
 function enemyAttack() {
-    let attackDamage = enemy.attack() * rollDice();
+    if (!animationEnemyAttackIsRunning) {
+        const diceResult = rollDice()
+    
+        fill(255);
+        image(dice, player.x + 300, player.y, 100, 100);
+    
+        attackDamage = enemy.attack() * diceResult;
+        
+        if (animationIndex < 0) {
+            animationIndex = 0;
+            animationEnemyAttackIsRunning = true;
+            frameRate(30);
+        }
+    }
 
-    fill(255);
-    image(dice, player.x + 300, player.y, 100, 100);
+    if (animationIndex >= 0){
+        if (animationIndex >= enemyAttackAnimation.length) {
+            animationEnemyAttackIsRunning = false;
+            animationIndex = -1;
+            frameRate(60);
+        } else {
+            image(enemyAttackAnimation[animationIndex], enemy.x, enemy.y, enemy.width, enemy.height);
+            animationIndex++;
+        }
+    }
+    
+    if (!animationEnemyAttackIsRunning) {
+        player.receiveDamage(attackDamage);
 
-    player.receiveDamage(attackDamage);
-
-    if (player.isDead()) {
-        player.health = 0;
-        buttonEnemyAttack.hide();
-        youLose();
-    } else {
-        turn = 0;
+        if (player.isDead()) {
+            player.health = 0;
+            buttonEnemyAttack.hide();
+            youLose();
+        } else {
+            turn = 0;
+        }
     }
 }
 
@@ -157,7 +210,7 @@ function preload() {
     //Characters
     knightImg = loadImage('../assets/knight/knight.png');
     wizardImg = loadImage('../assets/wizard/wizard.png');
-    orcImg = loadImage('../assets/orc.png');
+    orcImg = loadImage('../assets/orc/orc.png');
     trollImg = loadImage('../assets/troll.png');
     golemImg = loadImage('../assets/golem.png');
     minotaurImg = loadImage('../assets/minotaur.png');
@@ -203,6 +256,25 @@ function preload() {
     knightAttackImg7 = loadImage('../assets/knight/knight_attack_7.png');
     knightAttackImg8 = loadImage('../assets/knight/knight_attack_8.png');
     knightAttackImg9 = loadImage('../assets/knight/knight_attack_9.png');
+
+    wizardAttackImg0 = loadImage('../assets/wizard/wizard_attack_0.png');
+    wizardAttackImg1 = loadImage('../assets/wizard/wizard_attack_1.png');
+    wizardAttackImg2 = loadImage('../assets/wizard/wizard_attack_2.png');
+    wizardAttackImg3 = loadImage('../assets/wizard/wizard_attack_3.png');
+    wizardAttackImg4 = loadImage('../assets/wizard/wizard_attack_4.png');
+
+    orcAttackImg0 = loadImage('../assets/orc/orc_attack_0.png');
+    orcAttackImg1 = loadImage('../assets/orc/orc_attack_1.png');
+    orcAttackImg2 = loadImage('../assets/orc/orc_attack_2.png');
+    orcAttackImg3 = loadImage('../assets/orc/orc_attack_3.png');
+    orcAttackImg4 = loadImage('../assets/orc/orc_attack_4.png');
+    orcAttackImg5 = loadImage('../assets/orc/orc_attack_5.png');
+    orcAttackImg6 = loadImage('../assets/orc/orc_attack_6.png');
+    orcAttackImg7 = loadImage('../assets/orc/orc_attack_7.png');
+    orcAttackImg8 = loadImage('../assets/orc/orc_attack_8.png');
+    orcAttackImg9 = loadImage('../assets/orc/orc_attack_9.png');
+    orcAttackImg10 = loadImage('../assets/orc/orc_attack_10.png');
+    orcAttackImg11 = loadImage('../assets/orc/orc_attack_11.png');
 }
   
 function setup() {
@@ -252,8 +324,12 @@ function draw() {
                 dice = dice1Img;
             }
         } else if (!enemyIsDead) {
-            player.draw();
-            enemy.draw();
+            if (!animationPlayerAttackIsRunning) {
+                player.draw();
+            }
+            if (!animationEnemyAttackIsRunning) {
+                enemy.draw();
+            }
 
             //Player's Life
             image(heartImg, player.x, player.y - 50, 32, 32);
@@ -298,12 +374,18 @@ function draw() {
                 buttonAttack.position(player.x + 20, player.y + 300);
                 buttonAttack.show();
                 buttonEnemyAttack.hide();
+                if (animationPlayerAttackIsRunning) {
+                    playerAttack();
+                }
             } else { //Enemy's Turn
                 buttonEnemyAttack.position(enemy.x + 20, enemy.y + 300);
                 if (!player.isDead()) {
                     buttonEnemyAttack.show();
                 }
                 buttonAttack.hide();
+                if (animationEnemyAttackIsRunning) {
+                    enemyAttack();
+                }
             }
         } else if (enemyIsDead) {
             player.draw();
@@ -343,12 +425,13 @@ window.onload = () => {
         gameIsRunning = true;
 
         if (playerChoose === 0) {
-            knightAttackAnimation = [knightAttackImg0, knightAttackImg1, knightAttackImg2, knightAttackImg3, knightAttackImg4,
+            playerAttackAnimation = [knightAttackImg0, knightAttackImg1, knightAttackImg2, knightAttackImg3, knightAttackImg4,
                                      knightAttackImg5, knightAttackImg6, knightAttackImg7, knightAttackImg8, knightAttackImg9];
             const knightWalkAnimation = [knightWalkImg0, knightWalkImg1, knightWalkImg2, knightWalkImg3, knightWalkImg4,
                                          knightWalkImg5, knightWalkImg6, knightWalkImg7, knightWalkImg8, knightWalkImg9];
             player = new Knight(knightImg, initialX, initialY, 300, 250, knightWalkAnimation);
         } else {
+            playerAttackAnimation = [wizardAttackImg0, wizardAttackImg1, wizardAttackImg2, wizardAttackImg3, wizardAttackImg4];
             const wizardWalkAnimation = [wizardWalkImg0, wizardWalkImg1, wizardWalkImg2, wizardWalkImg3, wizardWalkImg4];
             player = new Wizard(wizardImg, initialX, initialY, 240, 250, wizardWalkAnimation);
         }
@@ -366,6 +449,9 @@ window.onload = () => {
         battleIsFinished = false;
         enemyIsDead = false;
         enemyAttacked = false;
+        animationPlayerAttackIsRunning = false;
+        animationEnemyAttackIsRunning = false;
+        animationIndex = -1;
         //startGame();
     }
 };
