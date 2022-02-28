@@ -27,47 +27,63 @@ class Character {
 }
 
 class Player extends Character {
-    constructor(img, x, y, width, height, health, strength, walkRightAnimation) {
+    constructor(img, x, y, width, height, health, strength, walkAnimation) {
         super(img, x, y, width, height, health, strength);
-        this.walkRightAnimation = walkRightAnimation;
+        this.walkAnimation = walkAnimation;
         this.walkAnimationIndex = 0;
     }
 
     moveLeft() {
-        this.x -= 3;
-        this.draw();
+        this.x -= 8;
+        if (this.walkAnimationIndex >= this.walkAnimation.length) {
+            this.walkAnimationIndex = 0;
+        }
+        image(this.walkAnimation[this.walkAnimationIndex], this.x, this.y, this.width, this.height);
+        this.walkAnimationIndex++;
     }
 
     moveRight() {
-        this.x += 3;
-        if (this.walkAnimationIndex >= this.walkRightAnimation.length) {
+        this.x += 8;
+        if (this.walkAnimationIndex >= this.walkAnimation.length) {
             this.walkAnimationIndex = 0;
         }
-        image(this.walkRightAnimation[this.walkAnimationIndex], this.x, this.y, this.width, this.height);
+        image(this.walkAnimation[this.walkAnimationIndex], this.x, this.y, this.width, this.height);
         this.walkAnimationIndex++;
     }
 }
 
 class Knight extends Player {
-    constructor(img, x, y, width, height, walkRightAnimation) {
-        super(img, x, y, width, height, 50, 5, walkRightAnimation);
+    constructor(img, x, y, width, height, walkAnimation) {
+        super(img, x, y, width, height, 50, 5, walkAnimation);
     }
 }
 
 class Wizard extends Player {
-    constructor(img, x, y, width, height) {
-        super(img, x, y, width, height, 40, 7);
+    constructor(img, x, y, width, height, walkAnimation) {
+        super(img, x, y, width, height, 40, 7, walkAnimation);
     }
 }
 
 class Orc extends Character {
     constructor(img, x, y, width, height) {
-        super(img, x, y, width, height, 20, 2);
+        super(img, x, y, width, height, 30, 2);
     }
 }
 
 class Troll extends Character {
     constructor(img, x, y, width, height) {
         super(img, x, y, width, height, 40, 3);
+    }
+}
+
+class Golem extends Character {
+    constructor(img, x, y, width, height) {
+        super(img, x, y, width, height, 50, 4);
+    }
+}
+
+class Minotaur extends Character {
+    constructor(img, x, y, width, height) {
+        super(img, x, y, width, height, 60, 5);
     }
 }

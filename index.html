@@ -18,7 +18,7 @@
         <p>Choose your class: </p>
         <div class="class-choose">
             <input type="image" id="knight" src="./assets/knight/knight.png" alt="Image of a knight.">
-            <input type="image" id="wizard" src="./assets/wizard.png" alt="Image of a wizard.">
+            <input type="image" id="wizard" src="./assets/wizard/wizard.png" alt="Image of a wizard.">
         </div>
         <br/>
         <button id="start-button">Start Game</button>
@@ -33,12 +33,15 @@
     <div class="game-over">
         <h1>BEERS & MONSTERS</h1>
         <br/>
-        <p>Congratulations!</p>
-        <p>It's your treasure now!</p>
-        <br/>
-        <p>Oh no, you died!</p>
-        <p>Maybe you haven't had enough beer.</p>
-        <br/>
+        <div id="win">
+            <p>Congratulations!</p>
+            <p>It's your treasure now!</p>
+            <br/>
+        </div>
+        <div id="lose">
+            <p>Oh no, you died!</p>
+            <p>Maybe you haven't had enough beer.</p>
+            <br/></div>
         <button id="restart-button">Restart</button>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/p5@1.4.1/lib/p5.js"></script>
