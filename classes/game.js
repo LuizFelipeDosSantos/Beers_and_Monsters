@@ -22,16 +22,22 @@ let orcAttackImg0, orcAttackImg1, orcAttackImg2, orcAttackImg3, orcAttackImg4, o
     orcAttackImg6, orcAttackImg7, orcAttackImg8, orcAttackImg9, orcAttackImg10, orcAttackImg11;
 let orcHealthBarWidth = 150;
 
-let enemyAttackAnimation = [];
-
 let trollImg;
+let trollAttackImg0, trollAttackImg1, trollAttackImg2, trollAttackImg3, trollAttackImg4,
+    trollAttackImg5, trollAttackImg6, trollAttackImg7, trollAttackImg8, trollAttackImg9;
 let trollHealthBarWidth = 200;
 
 let golemImg;
+let golemAttackImg0, golemAttackImg1, golemAttackImg2, golemAttackImg3, golemAttackImg4, golemAttackImg5,
+    golemAttackImg6, golemAttackImg7, golemAttackImg8, golemAttackImg9, golemAttackImg10, golemAttackImg11;
 let golemHealthBarWidth = 250;
 
 let minotaurImg;
+let minotaurAttackImg0, minotaurAttackImg1, minotaurAttackImg2, minotaurAttackImg3, minotaurAttackImg4, minotaurAttackImg5,
+    minotaurAttackImg6, minotaurAttackImg7, minotaurAttackImg8, minotaurAttackImg9, minotaurAttackImg10, minotaurAttackImg11;
 let minotaurHealthBarWidth = 300;
+
+let enemyAttackAnimation = [];
 
 let heartImg, dice1Img, dice2Img, dice3Img, dice4Img, dice5Img, dice6Img, dice;
 
@@ -39,6 +45,9 @@ let forestImg, ruinsImg, graveyardImg, castleImg;
 
 let buttonAttack, buttonEnemyAttack, attackDamage;
 
+let beerImg, treasureImg;
+
+let drankBeer = false;
 let gameIsRunning = false;
 let isBattling = false;
 let battleIsFinished = false;
@@ -65,19 +74,24 @@ function loadLevel() {
             background(ruinsImg);
             if (!(enemy instanceof Troll)) {
                 enemy = new Troll(trollImg, player.x + 500, player.y - 100, 400, 350);
-                enemyAttackAnimation = [];
+                enemyAttackAnimation = [trollAttackImg0, trollAttackImg1, trollAttackImg2, trollAttackImg3, trollAttackImg4,
+                                        trollAttackImg5, trollAttackImg6, trollAttackImg7, trollAttackImg8, trollAttackImg9];
             }
             break;
         case 3:
             background(graveyardImg);
             if (!(enemy instanceof Golem)) {
                 enemy = new Golem(golemImg, player.x + 500, player.y, 180, 260);
+                enemyAttackAnimation = [golemAttackImg0, golemAttackImg1, golemAttackImg2, golemAttackImg3, golemAttackImg4, golemAttackImg5,
+                                        golemAttackImg6, golemAttackImg7, golemAttackImg8, golemAttackImg9, golemAttackImg10, golemAttackImg11];
             }
             break;
         case 4:
             background(castleImg);
             if (!(enemy instanceof Minotaur)) {
                 enemy = new Minotaur(minotaurImg, player.x + 500, player.y - 100, 400, 350);
+                enemyAttackAnimation = [minotaurAttackImg0, minotaurAttackImg1, minotaurAttackImg2, minotaurAttackImg3, minotaurAttackImg4, minotaurAttackImg5,
+                                        minotaurAttackImg6, minotaurAttackImg7, minotaurAttackImg8, minotaurAttackImg9, minotaurAttackImg10, minotaurAttackImg11];
             }
             break;
         default:
@@ -190,6 +204,27 @@ function enemyAttack() {
     }
 }
 
+function gotBeer() {
+    return (player.x + (player.width / 3)) >= enemy.x;
+}
+
+function drinkBeer() {
+    player.health = (player.health + 10) > 50 ? 50 : player.health + 10; 
+    drankBeer = true;
+}
+
+function showPlayerLife() {
+    image(heartImg, player.x, player.y - 50, 32, 32);
+    fill(255);
+    if (player instanceof Knight) {
+        rect(player.x + 40, player.y - 50, knightHealthBarWidth, 20);   
+    } else {
+        rect(player.x + 40, player.y - 50, wizardHealthBarWidth, 20);
+    }
+    fill(255,0,0);
+    rect(player.x + 40, player.y - 50, player.health * 5, 20);
+}
+
 function youWin() {
     noLoop();
     document.querySelector('#game-board').style.display = 'none';
@@ -211,9 +246,9 @@ function preload() {
     knightImg = loadImage('../assets/knight/knight.png');
     wizardImg = loadImage('../assets/wizard/wizard.png');
     orcImg = loadImage('../assets/orc/orc.png');
-    trollImg = loadImage('../assets/troll.png');
-    golemImg = loadImage('../assets/golem.png');
-    minotaurImg = loadImage('../assets/minotaur.png');
+    trollImg = loadImage('../assets/troll/troll.png');
+    golemImg = loadImage('../assets/golem/golem.png');
+    minotaurImg = loadImage('../assets/minotaur/minotaur.png');
     //Heart
     heartImg = loadImage('../assets/heart.png');
     //Dices
@@ -228,6 +263,9 @@ function preload() {
     ruinsImg = loadImage('../assets/ruins.png');
     graveyardImg = loadImage('../assets/graveyard.png');
     castleImg = loadImage('../assets/castle.png');
+    //Beer and Treasure
+    beerImg = loadImage('../assets/beer.png');
+    treasureImg = loadImage('../assets/treasure.png');
     //Animations
     knightWalkImg0 = loadImage('../assets/knight/knight_walk_0.png');
     knightWalkImg1 = loadImage('../assets/knight/knight_walk_1.png');
@@ -240,11 +278,11 @@ function preload() {
     knightWalkImg8 = loadImage('../assets/knight/knight_walk_8.png');
     knightWalkImg9 = loadImage('../assets/knight/knight_walk_9.png');
 
-    wizardWalkImg0 = loadImage('../assets/wizard/wizard_walk_0.png');
+    /*wizardWalkImg0 = loadImage('../assets/wizard/wizard_walk_0.png');
     wizardWalkImg1 = loadImage('../assets/wizard/wizard_walk_1.png');
     wizardWalkImg2 = loadImage('../assets/wizard/wizard_walk_2.png');
     wizardWalkImg3 = loadImage('../assets/wizard/wizard_walk_3.png');
-    wizardWalkImg4 = loadImage('../assets/wizard/wizard_walk_4.png');
+    wizardWalkImg4 = loadImage('../assets/wizard/wizard_walk_4.png');*/
 
     knightAttackImg0 = loadImage('../assets/knight/knight_attack_0.png');
     knightAttackImg1 = loadImage('../assets/knight/knight_attack_1.png');
@@ -257,11 +295,11 @@ function preload() {
     knightAttackImg8 = loadImage('../assets/knight/knight_attack_8.png');
     knightAttackImg9 = loadImage('../assets/knight/knight_attack_9.png');
 
-    wizardAttackImg0 = loadImage('../assets/wizard/wizard_attack_0.png');
+    /*wizardAttackImg0 = loadImage('../assets/wizard/wizard_attack_0.png');
     wizardAttackImg1 = loadImage('../assets/wizard/wizard_attack_1.png');
     wizardAttackImg2 = loadImage('../assets/wizard/wizard_attack_2.png');
     wizardAttackImg3 = loadImage('../assets/wizard/wizard_attack_3.png');
-    wizardAttackImg4 = loadImage('../assets/wizard/wizard_attack_4.png');
+    wizardAttackImg4 = loadImage('../assets/wizard/wizard_attack_4.png');*/
 
     orcAttackImg0 = loadImage('../assets/orc/orc_attack_0.png');
     orcAttackImg1 = loadImage('../assets/orc/orc_attack_1.png');
@@ -275,6 +313,43 @@ function preload() {
     orcAttackImg9 = loadImage('../assets/orc/orc_attack_9.png');
     orcAttackImg10 = loadImage('../assets/orc/orc_attack_10.png');
     orcAttackImg11 = loadImage('../assets/orc/orc_attack_11.png');
+
+    trollAttackImg0 = loadImage('../assets/troll/troll_attack_0.png');
+    trollAttackImg1 = loadImage('../assets/troll/troll_attack_1.png');
+    trollAttackImg2 = loadImage('../assets/troll/troll_attack_2.png');
+    trollAttackImg3 = loadImage('../assets/troll/troll_attack_3.png');
+    trollAttackImg4 = loadImage('../assets/troll/troll_attack_4.png');
+    trollAttackImg5 = loadImage('../assets/troll/troll_attack_5.png');
+    trollAttackImg6 = loadImage('../assets/troll/troll_attack_6.png');
+    trollAttackImg7 = loadImage('../assets/troll/troll_attack_7.png');
+    trollAttackImg8 = loadImage('../assets/troll/troll_attack_8.png');
+    trollAttackImg9 = loadImage('../assets/troll/troll_attack_9.png');
+
+    golemAttackImg0 = loadImage('../assets/golem/golem_attack_0.png');
+    golemAttackImg1 = loadImage('../assets/golem/golem_attack_1.png');
+    golemAttackImg2 = loadImage('../assets/golem/golem_attack_2.png');
+    golemAttackImg3 = loadImage('../assets/golem/golem_attack_3.png');
+    golemAttackImg4 = loadImage('../assets/golem/golem_attack_4.png');
+    golemAttackImg5 = loadImage('../assets/golem/golem_attack_5.png');
+    golemAttackImg6 = loadImage('../assets/golem/golem_attack_6.png');
+    golemAttackImg7 = loadImage('../assets/golem/golem_attack_7.png');
+    golemAttackImg8 = loadImage('../assets/golem/golem_attack_8.png');
+    golemAttackImg9 = loadImage('../assets/golem/golem_attack_9.png');
+    golemAttackImg10 = loadImage('../assets/golem/golem_attack_10.png');
+    golemAttackImg11 = loadImage('../assets/golem/golem_attack_11.png');
+
+    minotaurAttackImg0 = loadImage('../assets/minotaur/minotaur_attack_0.png');
+    minotaurAttackImg1 = loadImage('../assets/minotaur/minotaur_attack_1.png');
+    minotaurAttackImg2 = loadImage('../assets/minotaur/minotaur_attack_2.png');
+    minotaurAttackImg3 = loadImage('../assets/minotaur/minotaur_attack_3.png');
+    minotaurAttackImg4 = loadImage('../assets/minotaur/minotaur_attack_4.png');
+    minotaurAttackImg5 = loadImage('../assets/minotaur/minotaur_attack_5.png');
+    minotaurAttackImg6 = loadImage('../assets/minotaur/minotaur_attack_6.png');
+    minotaurAttackImg7 = loadImage('../assets/minotaur/minotaur_attack_7.png');
+    minotaurAttackImg8 = loadImage('../assets/minotaur/minotaur_attack_8.png');
+    minotaurAttackImg9 = loadImage('../assets/minotaur/minotaur_attack_9.png');
+    minotaurAttackImg10 = loadImage('../assets/minotaur/minotaur_attack_10.png');
+    minotaurAttackImg11 = loadImage('../assets/minotaur/minotaur_attack_11.png');
 }
   
 function setup() {
@@ -302,19 +377,27 @@ function draw() {
             if (keyIsDown(LEFT_ARROW)) {
                 if (player.x > 0) {
                     player.moveLeft();
+                    showPlayerLife();
                 } else {
                     player.draw();
+                    showPlayerLife();
                 }
             } else if (keyIsDown(RIGHT_ARROW)) {
                 player.moveRight();
+                showPlayerLife();
+                if (gotBeer() && !drankBeer) {
+                    drinkBeer();
+                }
             } else {
                 player.draw();
+                showPlayerLife();
             }
 
             if (player.x > width) {
                 level++;
                 player.x = initialX;
                 battleIsFinished = false;
+                drankBeer = false;
             }
 
             if ((player.x > 300) && (!battleIsFinished)) {
@@ -323,9 +406,15 @@ function draw() {
                 isBattling = true;
                 dice = dice1Img;
             }
+
+            if (battleIsFinished && !drankBeer) {
+                image(beerImg, enemy.x, initialY + player.height - 100, 100, 100);
+            }
+
         } else if (!enemyIsDead) {
             if (!animationPlayerAttackIsRunning) {
                 player.draw();
+                showPlayerLife();
             }
             if (!animationEnemyAttackIsRunning) {
                 enemy.draw();
@@ -389,6 +478,7 @@ function draw() {
             }
         } else if (enemyIsDead) {
             player.draw();
+            showPlayerLife();
             buttonAttack.hide();
             buttonEnemyAttack.hide();
             isBattling = false;
@@ -444,6 +534,7 @@ window.onload = () => {
         document.querySelector('.game-intro').style.display = 'initial';
         level = 1;
         turn = 0;
+        drankBeer = false;
         gameIsRunning = false;
         isBattling = false;
         battleIsFinished = false;
@@ -452,6 +543,5 @@ window.onload = () => {
         animationPlayerAttackIsRunning = false;
         animationEnemyAttackIsRunning = false;
         animationIndex = -1;
-        //startGame();
     }
 };
