@@ -1,5 +1,5 @@
 let playerChoose;
-let level = 1;
+let level = 4;
 let turn = 0;
 let player;
 let knightImg;
@@ -58,6 +58,7 @@ let heartImg, dice1Img, dice2Img, dice3Img, dice4Img, dice5Img, dice6Img, dice;
 
 let forestImg, ruinsImg, graveyardImg, castleImg;
 
+let level1BackgroundSound, level2BackgroundSound, level3BackgroundSound, level4BackgroundSound;
 let levelFootstepSound;
 let level1FootstepSound, level2FootstepSound, level3FootstepSound, level4FootstepSound;
 let levelEnemySound;
@@ -103,6 +104,7 @@ function loadLevel() {
                 levelFootstepSound = level1FootstepSound;
                 levelEnemySound = level1EnemySound;
                 levelEnemyAttackSound = level1EnemyAttackSound;
+                //level1BackgroundSound.play();
             }
             break;
         case 2:
@@ -116,6 +118,7 @@ function loadLevel() {
                 levelFootstepSound = level2FootstepSound;
                 levelEnemySound = level2EnemySound;
                 levelEnemyAttackSound = level2EnemyAttackSound;
+                //level2BackgroundSound.play();
             }
             break;
         case 3:
@@ -130,6 +133,7 @@ function loadLevel() {
                 levelFootstepSound = level3FootstepSound;
                 levelEnemySound = level3EnemySound;
                 levelEnemyAttackSound = level3EnemyAttackSound;
+                //level3BackgroundSound.play();
             }
             break;
         case 4:
@@ -144,6 +148,7 @@ function loadLevel() {
                 levelFootstepSound = level4FootstepSound;
                 levelEnemySound = level4EnemySound;
                 levelEnemyAttackSound = level4EnemyAttackSound;
+                //level4BackgroundSound.play();
             }
             break;
         default:
@@ -336,6 +341,11 @@ function youLose() {
 }
 
 function preload() {
+    level1BackgroundSound = loadSound('../assets/sounds/level1/background.mp3');
+    level2BackgroundSound = loadSound('../assets/sounds/level2/background.mp3');
+    level3BackgroundSound = loadSound('../assets/sounds/level3/background.mp3');
+    level4BackgroundSound = loadSound('../assets/sounds/level4/background.mp3');
+
     level1FootstepSound = loadSound('../assets/sounds/level1/footstep.wav');
     level2FootstepSound = loadSound('../assets/sounds/level2/footstep.wav');
     level3FootstepSound = loadSound('../assets/sounds/level3/footstep.wav');
