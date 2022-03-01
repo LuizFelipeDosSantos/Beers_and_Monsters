@@ -34,7 +34,7 @@ class Player extends Character {
     }
 
     moveLeft() {
-        this.x -= 8;
+        this.x -= 6;
         if (this.walkAnimationIndex >= this.walkAnimation.length) {
             this.walkAnimationIndex = 0;
         }
@@ -43,7 +43,7 @@ class Player extends Character {
     }
 
     moveRight() {
-        this.x += 8;
+        this.x += 6;
         if (this.walkAnimationIndex >= this.walkAnimation.length) {
             this.walkAnimationIndex = 0;
         }
@@ -54,7 +54,7 @@ class Player extends Character {
 
 class Knight extends Player {
     constructor(img, x, y, width, height, walkAnimation) {
-        super(img, x, y, width, height, 50, 5, walkAnimation);
+        super(img, x, y, width, height, 50, 6, walkAnimation);
     }
 }
 

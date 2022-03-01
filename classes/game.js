@@ -58,6 +58,17 @@ let heartImg, dice1Img, dice2Img, dice3Img, dice4Img, dice5Img, dice6Img, dice;
 
 let forestImg, ruinsImg, graveyardImg, castleImg;
 
+let levelFootstepSound;
+let level1FootstepSound, level2FootstepSound, level3FootstepSound, level4FootstepSound;
+let levelEnemySound;
+let level1EnemySound, level2EnemySound, level3EnemySound, level4EnemySound;
+let levelEnemyAttackSound;
+let level1EnemyAttackSound, level2EnemyAttackSound, level3EnemyAttackSound, level4EnemyAttackSound;
+let knightAttackSound;
+let beerSound, treasureSound;
+let winSound, gameoverSound;
+let countSoundControl = 0;
+
 let buttonAttack, buttonEnemyAttack, attackDamage;
 
 let beerImg, treasureImg;
@@ -89,6 +100,9 @@ function loadLevel() {
                 enemyDyingAnimation = [orcDyingImg0, orcDyingImg1, orcDyingImg2, orcDyingImg3, orcDyingImg4, orcDyingImg5,
                                        orcDyingImg6, orcDyingImg7, orcDyingImg8, orcDyingImg9, orcDyingImg10, orcDyingImg11,
                                        orcDyingImg12, orcDyingImg13, orcDyingImg14];
+                levelFootstepSound = level1FootstepSound;
+                levelEnemySound = level1EnemySound;
+                levelEnemyAttackSound = level1EnemyAttackSound;
             }
             break;
         case 2:
@@ -99,6 +113,9 @@ function loadLevel() {
                                         trollAttackImg5, trollAttackImg6, trollAttackImg7, trollAttackImg8, trollAttackImg9];
                 enemyDyingAnimation = [trollDyingImg0, trollDyingImg1, trollDyingImg2, trollDyingImg3, trollDyingImg4,
                                        trollDyingImg5, trollDyingImg6, trollDyingImg7, trollDyingImg8, trollDyingImg9];
+                levelFootstepSound = level2FootstepSound;
+                levelEnemySound = level2EnemySound;
+                levelEnemyAttackSound = level2EnemyAttackSound;
             }
             break;
         case 3:
@@ -110,6 +127,9 @@ function loadLevel() {
                 enemyDyingAnimation = [golemDyingImg0, golemDyingImg1, golemDyingImg2, golemDyingImg3, golemDyingImg4, golemDyingImg5,
                                        golemDyingImg6, golemDyingImg7, golemDyingImg8, golemDyingImg9, golemDyingImg10, golemDyingImg11,
                                        golemDyingImg12, golemDyingImg13, golemDyingImg14];
+                levelFootstepSound = level3FootstepSound;
+                levelEnemySound = level3EnemySound;
+                levelEnemyAttackSound = level3EnemyAttackSound;
             }
             break;
         case 4:
@@ -121,6 +141,9 @@ function loadLevel() {
                 enemyDyingAnimation = [minotaurDyingImg0, minotaurDyingImg1, minotaurDyingImg2, minotaurDyingImg3, minotaurDyingImg4, minotaurDyingImg5,
                                        minotaurDyingImg6, minotaurDyingImg7, minotaurDyingImg8, minotaurDyingImg9, minotaurDyingImg10, minotaurDyingImg11,
                                        minotaurDyingImg12, minotaurDyingImg13, minotaurDyingImg14];
+                levelFootstepSound = level4FootstepSound;
+                levelEnemySound = level4EnemySound;
+                levelEnemyAttackSound = level4EnemyAttackSound;
             }
             break;
         default:
@@ -168,6 +191,8 @@ function playerAttack() {
             animationPlayerAttackIsRunning = true;
             frameRate(30);
         }
+
+        playKnightAttackSound();
     }
 
     if (animationIndex >= 0){
@@ -207,6 +232,8 @@ function enemyAttack() {
             animationEnemyAttackIsRunning = true;
             frameRate(30);
         }
+
+        playEnemyAttackSound();
     }
 
     if (animationIndex >= 0){
@@ -238,7 +265,12 @@ function gotBeer() {
 }
 
 function drinkBeer() {
-    player.health = (player.health + 10) > 50 ? 50 : player.health + 10; 
+    if (level < 4) {
+        player.health = (player.health + 10) > 50 ? 50 : player.health + 10;
+        beerSound.play();   
+    } else {
+        treasureSound.play();
+    }
     drankBeer = true;
 }
 
@@ -254,7 +286,40 @@ function showPlayerLife() {
     rect(player.x + 40, player.y - 50, player.health * 5, 20);
 }
 
+function playFootstepSound() {
+    if (countSoundControl === 0) {
+        levelFootstepSound.play();
+        countSoundControl = countSoundControl + 0.05;
+    } else {
+        countSoundControl = countSoundControl + 0.05;
+        if (countSoundControl >= 1) {
+            countSoundControl = 0;
+        }
+    }
+}
+
+function playEnemySound() {
+    levelEnemySound.play();
+}
+
+function playEnemyAttackSound() {
+    levelEnemyAttackSound.play();
+}
+
+function playKnightAttackSound() {
+    knightAttackSound.play();
+}
+
+function playWinSound() {
+    winSound.play();
+}
+
+function playGameOverSound() {
+    gameoverSound.play();
+}
+
 function youWin() {
+    playWinSound();
     noLoop();
     document.querySelector('#game-board').style.display = 'none';
     document.querySelector('.game-over').style.display = 'initial';
@@ -271,6 +336,29 @@ function youLose() {
 }
 
 function preload() {
+    level1FootstepSound = loadSound('../assets/sounds/level1/footstep.wav');
+    level2FootstepSound = loadSound('../assets/sounds/level2/footstep.wav');
+    level3FootstepSound = loadSound('../assets/sounds/level3/footstep.wav');
+    level4FootstepSound = loadSound('../assets/sounds/level4/footstep.wav');
+
+    level1EnemySound = loadSound('../assets/sounds/level1/enemy.wav');
+    level2EnemySound = loadSound('../assets/sounds/level2/enemy.wav');
+    level3EnemySound = loadSound('../assets/sounds/level3/enemy.wav');
+    level4EnemySound = loadSound('../assets/sounds/level4/enemy.wav');
+
+    level1EnemyAttackSound = loadSound('../assets/sounds/level1/enemy_attack.wav');
+    level2EnemyAttackSound = loadSound('../assets/sounds/level2/enemy_attack.wav');
+    level3EnemyAttackSound = loadSound('../assets/sounds/level3/enemy_attack.wav');
+    level4EnemyAttackSound = loadSound('../assets/sounds/level4/enemy_attack.wav');
+
+    knightAttackSound = loadSound('../assets/sounds/knight_attack.wav');
+
+    beerSound = loadSound('../assets/sounds/beer.wav');
+    treasureSound = loadSound('../assets/sounds/treasure.wav');
+
+    winSound = loadSound('../assets/sounds/win.wav');
+    gameoverSound = loadSound('../assets/sounds/gameover.wav');
+
     //Characters
     knightImg = loadImage('../assets/knight/knight.png');
     wizardImg = loadImage('../assets/wizard/wizard.png');
@@ -450,7 +538,7 @@ function preload() {
     minotaurDyingImg13 = loadImage('../assets/minotaur/minotaur_dying_13.png');
     minotaurDyingImg14 = loadImage('../assets/minotaur/minotaur_dying_14.png');
 }
-  
+
 function setup() {
     const canvas = createCanvas(windowWidth - 30, windowHeight - 60);
     canvas.parent('game-board');
@@ -475,6 +563,7 @@ function draw() {
         if (!isBattling) {
             if (keyIsDown(LEFT_ARROW)) {
                 if (player.x > 0) {
+                    playFootstepSound();
                     player.moveLeft();
                     showPlayerLife();
                 } else {
@@ -482,6 +571,7 @@ function draw() {
                     showPlayerLife();
                 }
             } else if (keyIsDown(RIGHT_ARROW)) {
+                playFootstepSound();
                 player.moveRight();
                 showPlayerLife();
                 if (gotBeer() && !drankBeer) {
@@ -502,12 +592,17 @@ function draw() {
             if ((player.x > 300) && (!battleIsFinished)) {
                 enemy.x =  player.x + 500;
                 enemy.draw();
+                playEnemySound();
                 isBattling = true;
                 dice = dice1Img;
             }
 
             if (battleIsFinished && !drankBeer) {
-                image(beerImg, enemy.x, initialY + player.height - 100, 100, 100);
+                if (level === 4) {
+                    image(treasureImg, enemy.x, initialY + player.height - 100, 100, 100);
+                } else {
+                    image(beerImg, enemy.x, initialY + player.height - 100, 100, 100);
+                }
             }
 
         } else if (!enemyIsDead) {
@@ -578,7 +673,6 @@ function draw() {
                     }
                 }
             } else {
-                console.log('Passou');
                 enemy.draw();
 
                 //Dice
@@ -593,6 +687,8 @@ function draw() {
                     animationIndex = 0;
                     animationPlayerDyingIsRunning = true;
                     frameRate(20);
+
+                    playGameOverSound();
                 }
 
                 if (animationIndex >= 0){
