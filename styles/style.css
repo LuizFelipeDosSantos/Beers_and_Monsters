@@ -23,10 +23,10 @@
     justify-content: center;
   }
 
-  .class-choose #wizard {
+  /*.class-choose #wizard {
     width: 15vw;
     height: 30vh;
-  }
+  }*/
 
   .class-choose #knight {
     width: 18vw;
