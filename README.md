@@ -1,9 +1,9 @@
-# Beers & Dragons
-[Link Github] (https://github.com/LuizFelipeDosSantos/Beers_and_Dragons)
-[Link Deploy]
+# Beers & Monsters
+Link Github https://github.com/LuizFelipeDosSantos/Beers_and_Monsters
+Link Deploy
 
 ## Description
-Beers and Dragons is a turn-based RPG where your objective is to get the treasure in the cave.
+Beers and Monsters is a turn-based RPG where your objective is to get the treasure in the cave.
 On the way you will meet monsters that tried to stop you.
 To fight them, you must use the attack button and roll the dice to see how hard you hit the enemy.
 When the enemy's health reaches 0 you've defeated him and you can go on your way.
@@ -59,8 +59,5 @@ Definition of the different states and their transition (transition functions)
 - game - addEventListener
 
 ## Additional Links
-### Trello
-[Link url] (https://trello.com/b/mtCye6Tb/beersdragons)
-
 ### Slides
-[Link Slides.com] (https://slides.com)
+Link Slides.com https://slides.com
