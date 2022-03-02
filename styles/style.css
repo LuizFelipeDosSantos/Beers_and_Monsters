@@ -1,37 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+  
   body {
+    margin: 0;
     padding: 0;
     text-align: center;
   }
   
   .game-intro {
     padding: 0% 10%;
-    background-color: lightgray ;
+    background-image: url('../assets/tileset.png');
+    background-position: 0 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 92vh;
   }
 
   .game-intro h1 {
-    font-size: 30px;
+    font-size: 60px;
+    color: black;
+    font-style: bold;
+    font-family: 'VT323', monospace;
   }
   
   .game-intro p {
-    font-size: 18px;
-    font-family: "Verdana"
+    font-size: 40px;
+    font-family: "Verdana";
+    color: white;
+    font-family: 'VT323', monospace;
   }
   
-  .class-choose {
+  /*.class-choose {
     display: flex;
     flex-direction: row;
     justify-content: center;
   }
 
-  /*.class-choose #wizard {
+  .class-choose #wizard {
     width: 15vw;
     height: 30vh;
-  }*/
+  }
 
   .class-choose #knight {
     width: 18vw;
     height: 30vh;
-  }
+  }*/
   
   body button {
     font-size: 30px;
@@ -48,20 +60,46 @@
       float: left;
       padding: 20px 0px;
       display: none;
+      font-family: 'VT323', monospace;
   }
 
   .game-over {
     padding: 0% 10%;
-    background-color: lightgray ;
+    background-image: url('../assets/tileset.png');
+    background-position: 0 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 92vh;
     display: none;
   }
 
   .game-over h1 {
-    font-size: 30px;
+    font-size: 60px;
+    color: black;
+    font-style: bold;
+    font-family: 'VT323', monospace;
   }
   
   .game-over p {
-    font-size: 18px;
-    font-family: "Verdana"
+    font-size: 20px;
+    font-family: "Verdana";
+    color: white;
+    font-family: 'VT323', monospace;
+  }
+
+  .win-image {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .win-image #knight {
+    width: 18vw;
+    height: 30vh;
+  }
+
+  .win-image #treasure {
+    width: 18vw;
+    height: 30vh;
   }
   

@@ -1,4 +1,3 @@
-//let playerChoose;
 let level = 1;
 let turn = 0;
 let player;
@@ -10,11 +9,6 @@ let knightAttackImg0, knightAttackImg1, knightAttackImg2, knightAttackImg3, knig
 let knightDyingImg0, knightDyingImg1, knightDyingImg2, knightDyingImg3, knightDyingImg4,
     knightDyingImg5, knightDyingImg6, knightDyingImg7, knightDyingImg8, knightDyingImg9;
 let knightHealthBarWidth = 250;
-
-/*let wizardImg;
-let wizardWalkImg0, wizardWalkImg1, wizardWalkImg2, wizardWalkImg3, wizardWalkImg4;
-let wizardAttackImg0, wizardAttackImg1, wizardAttackImg2, wizardAttackImg3, wizardAttackImg4;
-let wizardHealthBarWidth = 200;*/
 
 let playerAttackAnimation = [];
 let playerDyingAnimation = [];
@@ -56,7 +50,7 @@ let enemyDyingAnimation = [];
 
 let heartImg, dice1Img, dice2Img, dice3Img, dice4Img, dice5Img, dice6Img, dice;
 
-let forestImg, ruinsImg, graveyardImg, castleImg;
+let forestImg, ruinsImg, graveyardImg, castleImg, tilesetImg;
 
 let level1BackgroundSound, level2BackgroundSound, level3BackgroundSound, level4BackgroundSound;
 let levelFootstepSound;
@@ -71,7 +65,8 @@ let mushroomSound, cauldronSound, potionSound, bookSound;
 let winSound, gameoverSound;
 let countSoundControl = 0;
 
-let buttonAttack, buttonEnemyAttack, buttonYes, buttonNo, attackDamage;
+let buttonAttack, buttonEnemyAttack, buttonYes, buttonNo, buttonRestart; 
+let attackDamage;
 
 let beerImg, treasureImg;
 let mushroomImg, cauldronImg, potionImg, bookImg;
@@ -314,10 +309,8 @@ function getDecisionItem() {
             break;
         case 2:
             cauldronSound.play();
-            player.health += 10;
-            console.log(enemy.strength);
+            player.health += 5;
             enemy.strength += 2;
-            console.log(enemy.strength);
             break;
         case 3:
             potionSound.play();
@@ -333,11 +326,7 @@ function getDecisionItem() {
 function showPlayerLife() {
     image(heartImg, player.x, player.y - 50, 32, 32);
     fill(255);
-    if (player instanceof Knight) {
-        rect(player.x + 40, player.y - 50, knightHealthBarWidth, 20);   
-    } else {
-        //rect(player.x + 40, player.y - 50, wizardHealthBarWidth, 20);
-    }
+    rect(player.x + 40, player.y - 50, knightHealthBarWidth, 20);   
     fill(255,0,0);
     rect(player.x + 40, player.y - 50, player.health * 5, 20);
 }
@@ -376,13 +365,42 @@ function playGameOverSound() {
     gameoverSound.setVolume(0.3);
 }
 
+function restartGame() {
+    //document.querySelector('.game-over').style.display = 'none';
+    //document.querySelector('.game-intro').style.display = 'initial';
+    level = 1;
+    turn = 0;
+    drankBeer = false;
+    gameIsRunning = false;
+    isBattling = false;
+    battleIsFinished = false;
+    playerIsDead = false;
+    enemyIsDead = false;
+    enemyAttacked = false;
+    animationPlayerAttackIsRunning = false;
+    animationEnemyAttackIsRunning = false;
+    animationIndex = -1;
+
+    startGame();
+}
+
 function youWin() {
-    playWinSound();
     noLoop();
-    document.querySelector('#game-board').style.display = 'none';
-    document.querySelector('.game-over').style.display = 'initial';
-    document.querySelector('#win').style.display = 'initial';
-    document.querySelector('#lose').style.display = 'none';
+    gameIsRunning = false;
+    playWinSound();
+    background(tilesetImg);
+    fill(0);
+    textSize(60);
+    textStyle(BOLD);
+    text('BEERS & MONSTERS', 480, 42);
+
+    fill(255);
+    textSize(40);
+    text('Congratulations!', 480, 150);
+    text('You found the beer of immortality!', 480, 200);
+
+    buttonRestart.position(600, 300);
+    buttonRestart.show();
 }
 
 function youLose() {
@@ -401,10 +419,22 @@ function youLose() {
     }
 
     noLoop();
-    document.querySelector('#game-board').style.display = 'none';
-    document.querySelector('.game-over').style.display = 'initial';
-    document.querySelector('#win').style.display = 'none';
-    document.querySelector('#lose').style.display = 'initial';
+    gameIsRunning = false;
+
+    background(tilesetImg);
+    fill(0);
+    textSize(60);
+    textStyle(BOLD);
+    text('BEERS & MONSTERS', 480, 42);
+
+    fill(255);
+    textSize(40);
+
+    text('Oh no, you died!', 480, 150);
+    text("Maybe you haven't had enough beer.", 480, 200);
+
+    buttonRestart.position(600, 300);
+    buttonRestart.show();
 }
 
 function decisionYes() {
@@ -423,9 +453,8 @@ function makeDecision() {
     switch (level) {
         case 1:
             fill(0);
-            rect(player.x - 10, 0, 980, 120);
+            rect(player.x - 10, 0, 850, 120);
             textSize(30);
-            textStyle(BOLD);
             fill(255);
             text('You found a mushroom on the ground.', player.x, 30);
             text('It can have an effect on your strength, but it can also be poisonous.', player.x, 60);
@@ -433,9 +462,8 @@ function makeDecision() {
             break;
         case 2:
             fill(0);
-            rect(player.x - 10, 0, 850, 120);
+            rect(player.x - 10, 0, 700, 120);
             textSize(30);
-            textStyle(BOLD);
             fill(255);
             text('You found a cauldron with a soup.', player.x, 30);
             text('There is no one around and this can increase your health.', player.x, 60);
@@ -443,9 +471,8 @@ function makeDecision() {
             break;
         case 3:
             fill(0);
-            rect(player.x - 10, 0, 850, 120);
+            rect(player.x - 10, 0, 700, 120);
             textSize(30);
-            textStyle(BOLD);
             fill(255);
             text('You found a potion.', player.x, 30);
             text('It looks like a potion that can increase your health.', player.x, 60);
@@ -453,9 +480,8 @@ function makeDecision() {
             break;
         case 4:
             fill(0);
-            rect(player.x - 80, 0, 1150, 120);
+            rect(player.x - 80, 0, 1000, 120);
             textSize(30);
-            textStyle(BOLD);
             fill(255);
             text('You found a book.', player.x - 70, 30);
             text('This book may contain some secret about the keeper of the "Immortality Item".', player.x - 70, 60);
@@ -467,8 +493,9 @@ function itemResult() {
     switch (level) {
         case 1:
             fill(0);
-            rect(400 - 10, 0, 550, 90);
+            rect(400 - 10, 0, 450, 90);
             textSize(30);
+            textFont(fontVT323);
             textStyle(BOLD);
             fill(255);
             text('No, the mushroom was poisonous.', 400, 30);
@@ -476,7 +503,7 @@ function itemResult() {
             break;
         case 2:
             fill(0);
-            rect(100 - 10, 0, 1120, 90);
+            rect(100 - 10, 0, 1000, 90);
             textSize(30);
             textStyle(BOLD);
             fill(255);
@@ -485,7 +512,7 @@ function itemResult() {
             break;
         case 3:
             fill(0);
-            rect(400 - 10, 0, 650, 90);
+            rect(400 - 10, 0, 550, 90);
             textSize(30);
             textStyle(BOLD);
             fill(255);            
@@ -494,7 +521,7 @@ function itemResult() {
             break;
         case 4:
             fill(0);
-            rect(200 - 10, 0, 1000, 90);
+            rect(200 - 10, 0, 800, 90);
             textSize(30);
             textStyle(BOLD);
             fill(255);
@@ -504,6 +531,8 @@ function itemResult() {
 }
 
 function preload() {
+    fontVT323 = loadFont('../assets/VT323-Regular.ttf');
+
     level1BackgroundSound = loadSound('../assets/sounds/level1/background.mp3');
     level2BackgroundSound = loadSound('../assets/sounds/level2/background.mp3');
     level3BackgroundSound = loadSound('../assets/sounds/level3/background.mp3');
@@ -538,7 +567,6 @@ function preload() {
 
     //Characters
     knightImg = loadImage('../assets/knight/knight.png');
-    //wizardImg = loadImage('../assets/wizard/wizard.png');
     orcImg = loadImage('../assets/orc/orc.png');
     trollImg = loadImage('../assets/troll/troll.png');
     golemImg = loadImage('../assets/golem/golem.png');
@@ -557,6 +585,7 @@ function preload() {
     ruinsImg = loadImage('../assets/ruins.png');
     graveyardImg = loadImage('../assets/graveyard.png');
     castleImg = loadImage('../assets/castle.png');
+    tilesetImg = loadImage('../assets/tileset.png');
     //Beer and Treasure
     beerImg = loadImage('../assets/beer.png');
     treasureImg = loadImage('../assets/treasure.png');
@@ -576,12 +605,6 @@ function preload() {
     knightWalkImg7 = loadImage('../assets/knight/knight_walk_7.png');
     knightWalkImg8 = loadImage('../assets/knight/knight_walk_8.png');
     knightWalkImg9 = loadImage('../assets/knight/knight_walk_9.png');
-
-    /*wizardWalkImg0 = loadImage('../assets/wizard/wizard_walk_0.png');
-    wizardWalkImg1 = loadImage('../assets/wizard/wizard_walk_1.png');
-    wizardWalkImg2 = loadImage('../assets/wizard/wizard_walk_2.png');
-    wizardWalkImg3 = loadImage('../assets/wizard/wizard_walk_3.png');
-    wizardWalkImg4 = loadImage('../assets/wizard/wizard_walk_4.png');*/
 
     knightAttackImg0 = loadImage('../assets/knight/knight_attack_0.png');
     knightAttackImg1 = loadImage('../assets/knight/knight_attack_1.png');
@@ -604,12 +627,6 @@ function preload() {
     knightDyingImg7 = loadImage('../assets/knight/knight_die_7.png');
     knightDyingImg8 = loadImage('../assets/knight/knight_die_8.png');
     knightDyingImg9 = loadImage('../assets/knight/knight_die_9.png');
-
-    /*wizardAttackImg0 = loadImage('../assets/wizard/wizard_attack_0.png');
-    wizardAttackImg1 = loadImage('../assets/wizard/wizard_attack_1.png');
-    wizardAttackImg2 = loadImage('../assets/wizard/wizard_attack_2.png');
-    wizardAttackImg3 = loadImage('../assets/wizard/wizard_attack_3.png');
-    wizardAttackImg4 = loadImage('../assets/wizard/wizard_attack_4.png');*/
 
     orcAttackImg0 = loadImage('../assets/orc/orc_attack_0.png');
     orcAttackImg1 = loadImage('../assets/orc/orc_attack_1.png');
@@ -722,26 +739,36 @@ function preload() {
 }
 
 function setup() {
-    const canvas = createCanvas(windowWidth - 30, windowHeight - 60);
+    const canvas = createCanvas(windowWidth, windowHeight - 50);
     canvas.parent('game-board');
 
     buttonAttack = createButton('Attack');
     buttonAttack.mousePressed(playerAttack);
     buttonAttack.hide();
+    buttonAttack.style("font-family", "VT323");
 
     buttonEnemyAttack = createButton('Enemy Attack');
     buttonEnemyAttack.mousePressed(enemyAttack);
     buttonEnemyAttack.hide();
+    buttonEnemyAttack.style("font-family", "VT323");
 
     buttonYes = createButton('Yes');
     buttonYes.mousePressed(decisionYes);
     buttonYes.hide();
+    buttonYes.style("font-family", "VT323");
 
     buttonNo = createButton('No');
     buttonNo.mousePressed(decisionNo);
     buttonNo.hide();
+    buttonNo.style("font-family", "VT323");
+
+    buttonRestart = createButton('Restart');
+    buttonRestart.mousePressed(restartGame);
+    buttonRestart.hide();
 
     dice = dice1Img;
+
+    textFont(fontVT323);
 
     noLoop();
 }
@@ -750,229 +777,245 @@ function draw() {
     if (gameIsRunning) {
         loadLevel();
 
-        if (!isBattling) {
-            if (keyIsDown(LEFT_ARROW)) {
-                if (player.x > 0 && !isDeciding) {
-                    playFootstepSound();
-                    player.moveLeft();
-                    showPlayerLife();
-                } else {
-                    player.draw();
-                    showPlayerLife();
-                }
-            } else if (keyIsDown(RIGHT_ARROW)) {
-                if (!isDeciding) {
-                    playFootstepSound();
-                    player.moveRight();
-                    showPlayerLife();
-                    if (!isDecisionLevel) {
-                        if (gotBeer() && !drankBeer) {
-                            drinkBeer();
+        if (gameIsRunning) {
+            if (!isBattling) {
+                if (keyIsDown(LEFT_ARROW)) {
+                    if (player.x > 0 && !isDeciding) {
+                        playFootstepSound();
+                        player.moveLeft();
+                        showPlayerLife();
+                    } else {
+                        player.draw();
+                        showPlayerLife();
+                    }
+                } else if (keyIsDown(RIGHT_ARROW)) {
+                    if (!isDeciding) {
+                        playFootstepSound();
+                        player.moveRight();
+                        showPlayerLife();
+                        if (!isDecisionLevel) {
+                            if (gotBeer() && !drankBeer) {
+                                drinkBeer();
+                            }
+                        } else {
+                            if (gotItem() && showItem && decision) {
+                                getDecisionItem();
+                            }
                         }
                     } else {
-                        if (gotItem() && showItem && decision) {
-                            getDecisionItem();
-                        }
+                        player.draw();
+                        showPlayerLife();
                     }
                 } else {
                     player.draw();
                     showPlayerLife();
                 }
-            } else {
+                
+                if (player.x > width) {
+                    level += 0.5;
+                    player.x = initialX;
+                    battleIsFinished = false;
+                    drankBeer = false;
+                    showItem = true;
+                    decided = false;
+                }
+    
+                if (!isDecisionLevel) {
+    
+                    if ((player.x > 300) && (!battleIsFinished)) {
+                        enemy.x =  player.x + 500;
+                        enemy.draw();
+                        playEnemySound();
+                        isBattling = true;
+                        dice = dice1Img;
+                    }
+    
+                    if (battleIsFinished && !drankBeer) {
+                        if (level === 4.5) {
+                            image(treasureImg, enemy.x, initialY + player.height - 150, 150, 150);
+                        } else {
+                            image(beerImg, enemy.x, initialY + player.height - 100, 100, 100);
+                        }
+                    }
+    
+                } else {
+                    if (showItem) {
+                        switch (level) {
+                            case 1:
+                                image(mushroomImg, 700, player.y + player.height - 75, 75, 75);
+                                break;
+                            case 2:
+                                image(cauldronImg, 700, player.y + player.height - 100, 100, 100);
+                                break;
+                            case 3:
+                                image(potionImg, 700, player.y + player.height - 75, 75, 75);
+                                break;
+                            case 4:
+                                image(bookImg, 700, player.y + player.height - 75, 75, 75);
+                        }
+                    } else {
+                        itemResult();
+                    }
+                    if (player.x > 200 && !decided) {
+                        isDeciding = true;
+                        makeDecision();
+                        buttonYes.position(player.x + player.width + 50, 150);
+                        buttonYes.show();
+                        buttonNo.position(player.x + player.width + 200, 150);
+                        buttonNo.show();        
+                    } else {
+                        buttonYes.hide();
+                        buttonNo.hide();
+                    }
+                }
+    
+            } else if (!enemyIsDead) {
+                if (!playerIsDead) {
+    
+                    if (!animationPlayerAttackIsRunning) {
+                        player.draw();
+                        showPlayerLife();
+                    }
+                    if (!animationEnemyAttackIsRunning) {
+                        enemy.draw();
+                    }
+    
+                    //Player's Life
+                    image(heartImg, player.x, player.y - 50, 32, 32);
+                    fill(255);
+                    rect(player.x + 40, player.y - 50, knightHealthBarWidth, 20);   
+                    fill(255,0,0);
+                    rect(player.x + 40, player.y - 50, player.health * 5, 20);
+    
+                    //Enemy's Life
+                    image(heartImg, enemy.x, enemy.y - 50, 32, 32);
+                    fill(255);
+                    
+                    let enemyHealthBar;
+                    switch (enemy.constructor) {
+                        case Orc:
+                            enemyHealthBar = orcHealthBarWidth;
+                            break;
+                        case Troll:
+                            enemyHealthBar = trollHealthBarWidth;
+                            break;
+                        case Golem:
+                            enemyHealthBar = golemHealthBarWidth;
+                            break;
+                        case Minotaur:
+                            enemyHealthBar = minotaurHealthBarWidth;
+                    }
+                    rect(enemy.x + 40, enemy.y - 50, enemyHealthBar, 20);
+    
+                    fill(255,0,0);
+                    rect(enemy.x + 40, enemy.y - 50, enemy.health * 5, 20);
+    
+                    //Dice
+                    fill(255);
+                    image(dice, player.x + 300, player.y, 100, 100);
+    
+                    //Player's Turn
+                    if (turn === 0) {
+                        buttonAttack.position(player.x + 20, player.y + 300);
+                        buttonAttack.show();
+                        buttonEnemyAttack.hide();
+                        if (animationPlayerAttackIsRunning) {
+                            playerAttack();
+                        }
+                    } else { //Enemy's Turn
+                        buttonEnemyAttack.position(enemy.x + 20, enemy.y + 300);
+                        if (!player.isDead()) {
+                            buttonEnemyAttack.show();
+                        }
+                        buttonAttack.hide();
+                        if (animationEnemyAttackIsRunning) {
+                            enemyAttack();
+                        }
+                    }
+                } else {
+                    enemy.draw();
+    
+                    //Dice
+                    fill(255);
+                    image(dice, player.x + 300, player.y, 100, 100);
+    
+                    //Enemy's Life
+                    image(heartImg, enemy.x, enemy.y - 50, 32, 32);
+                    fill(255);
+    
+                    if (animationIndex < 0) {
+                        animationIndex = 0;
+                        animationPlayerDyingIsRunning = true;
+                        frameRate(20);
+    
+                        playGameOverSound();
+                    }
+    
+                    if (animationIndex >= 0){
+                        if (animationIndex >= playerDyingAnimation.length) {
+                            animationPlayerDyingIsRunning = false;
+                            animationIndex = -1;
+                            frameRate(60);
+                            youLose();
+                        } else {
+                            image(playerDyingAnimation[animationIndex], player.x, player.y, player.width, player.height);
+                            animationIndex++;
+                        }
+                    }
+                }
+            } else if (enemyIsDead) {
                 player.draw();
                 showPlayerLife();
-            }
-            
-            if (player.x > width) {
-                level += 0.5;
-                player.x = initialX;
-                battleIsFinished = false;
-                drankBeer = false;
-                showItem = true;
-                decided = false;
-            }
-
-            if (!isDecisionLevel) {
-
-                if ((player.x > 300) && (!battleIsFinished)) {
-                    enemy.x =  player.x + 500;
-                    enemy.draw();
-                    playEnemySound();
-                    isBattling = true;
-                    dice = dice1Img;
-                }
-
-                if (battleIsFinished && !drankBeer) {
-                    if (level === 4.5) {
-                        image(treasureImg, enemy.x, initialY + player.height - 150, 150, 150);
-                    } else {
-                        image(beerImg, enemy.x, initialY + player.height - 100, 100, 100);
-                    }
-                }
-
-            } else {
-                if (showItem) {
-                    switch (level) {
-                        case 1:
-                            image(mushroomImg, 700, player.y + player.height - 75, 75, 75);
-                            break;
-                        case 2:
-                            image(cauldronImg, 700, player.y + player.height - 100, 100, 100);
-                            break;
-                        case 3:
-                            image(potionImg, 700, player.y + player.height - 75, 75, 75);
-                            break;
-                        case 4:
-                            image(bookImg, 700, player.y + player.height - 75, 75, 75);
-                    }
-                } else {
-                    itemResult();
-                }
-                if (player.x > 200 && !decided) {
-                    isDeciding = true;
-                    makeDecision();
-                    buttonYes.position(player.x + player.width + 50, 150);
-                    buttonYes.show();
-                    buttonNo.position(player.x + player.width + 200, 150);
-                    buttonNo.show();        
-                } else {
-                    buttonYes.hide();
-                    buttonNo.hide();
-                }
-            }
-
-        } else if (!enemyIsDead) {
-            if (!playerIsDead) {
-
-                if (!animationPlayerAttackIsRunning) {
-                    player.draw();
-                    showPlayerLife();
-                }
-                if (!animationEnemyAttackIsRunning) {
-                    enemy.draw();
-                }
-
-                //Player's Life
-                image(heartImg, player.x, player.y - 50, 32, 32);
-                fill(255);
-                if (player instanceof Knight) {
-                    rect(player.x + 40, player.y - 50, knightHealthBarWidth, 20);   
-                } else {
-                    //rect(player.x + 40, player.y - 50, wizardHealthBarWidth, 20);
-                }
-                fill(255,0,0);
-                rect(player.x + 40, player.y - 50, player.health * 5, 20);
-
-                //Enemy's Life
-                image(heartImg, enemy.x, enemy.y - 50, 32, 32);
-                fill(255);
-                
-                let enemyHealthBar;
-                switch (enemy.constructor) {
-                    case Orc:
-                        enemyHealthBar = orcHealthBarWidth;
-                        break;
-                    case Troll:
-                        enemyHealthBar = trollHealthBarWidth;
-                        break;
-                    case Golem:
-                        enemyHealthBar = golemHealthBarWidth;
-                        break;
-                    case Minotaur:
-                        enemyHealthBar = minotaurHealthBarWidth;
-                }
-                rect(enemy.x + 40, enemy.y - 50, enemyHealthBar, 20);
-
-                fill(255,0,0);
-                rect(enemy.x + 40, enemy.y - 50, enemy.health * 5, 20);
-
+    
                 //Dice
                 fill(255);
                 image(dice, player.x + 300, player.y, 100, 100);
-
-                //Player's Turn
-                if (turn === 0) {
-                    buttonAttack.position(player.x + 20, player.y + 300);
-                    buttonAttack.show();
-                    buttonEnemyAttack.hide();
-                    if (animationPlayerAttackIsRunning) {
-                        playerAttack();
-                    }
-                } else { //Enemy's Turn
-                    buttonEnemyAttack.position(enemy.x + 20, enemy.y + 300);
-                    if (!player.isDead()) {
-                        buttonEnemyAttack.show();
-                    }
-                    buttonAttack.hide();
-                    if (animationEnemyAttackIsRunning) {
-                        enemyAttack();
-                    }
-                }
-            } else {
-                enemy.draw();
-
-                //Dice
-                fill(255);
-                image(dice, player.x + 300, player.y, 100, 100);
-
-                //Enemy's Life
-                image(heartImg, enemy.x, enemy.y - 50, 32, 32);
-                fill(255);
-
+    
                 if (animationIndex < 0) {
                     animationIndex = 0;
-                    animationPlayerDyingIsRunning = true;
+                    animationEnemyDyingIsRunning = true;
                     frameRate(20);
-
-                    playGameOverSound();
                 }
-
+    
                 if (animationIndex >= 0){
-                    if (animationIndex >= playerDyingAnimation.length) {
-                        animationPlayerDyingIsRunning = false;
+                    if (animationIndex >= enemyDyingAnimation.length) {
+                        animationEnemyDyingIsRunning = false;
                         animationIndex = -1;
                         frameRate(60);
-                        youLose();
                     } else {
-                        image(playerDyingAnimation[animationIndex], player.x, player.y, player.width, player.height);
+                        image(enemyDyingAnimation[animationIndex], enemy.x, enemy.y, enemy.width, enemy.height);
                         animationIndex++;
                     }
                 }
-            }
-        } else if (enemyIsDead) {
-            player.draw();
-            showPlayerLife();
-
-            //Dice
-            fill(255);
-            image(dice, player.x + 300, player.y, 100, 100);
-
-            if (animationIndex < 0) {
-                animationIndex = 0;
-                animationEnemyDyingIsRunning = true;
-                frameRate(20);
-            }
-
-            if (animationIndex >= 0){
-                if (animationIndex >= enemyDyingAnimation.length) {
-                    animationEnemyDyingIsRunning = false;
-                    animationIndex = -1;
-                    frameRate(60);
-                } else {
-                    image(enemyDyingAnimation[animationIndex], enemy.x, enemy.y, enemy.width, enemy.height);
-                    animationIndex++;
+    
+                if (!animationEnemyDyingIsRunning) {
+                    buttonAttack.hide();
+                    buttonEnemyAttack.hide();
+                    isBattling = false;
+                    battleIsFinished = true;
+                    enemyIsDead = false;
                 }
-            }
-
-            if (!animationEnemyDyingIsRunning) {
-                buttonAttack.hide();
-                buttonEnemyAttack.hide();
-                isBattling = false;
-                battleIsFinished = true;
-                enemyIsDead = false;
             }
         }
     }
+}
+
+function startGame() {
+    document.querySelector('.game-intro').style.display = 'none';
+    document.querySelector('#game-board').style.display = 'initial';
+    gameIsRunning = true;
+
+    playerAttackAnimation = [knightAttackImg0, knightAttackImg1, knightAttackImg2, knightAttackImg3, knightAttackImg4,
+                             knightAttackImg5, knightAttackImg6, knightAttackImg7, knightAttackImg8, knightAttackImg9];
+    const knightWalkAnimation = [knightWalkImg0, knightWalkImg1, knightWalkImg2, knightWalkImg3, knightWalkImg4,
+                                 knightWalkImg5, knightWalkImg6, knightWalkImg7, knightWalkImg8, knightWalkImg9];
+    playerDyingAnimation = [knightDyingImg0, knightDyingImg1, knightDyingImg2, knightDyingImg3, knightDyingImg4,
+                            knightDyingImg5, knightDyingImg6, knightDyingImg7, knightDyingImg8, knightDyingImg9];
+    player = new Knight(knightImg, initialX, initialY, 300, 250, knightWalkAnimation);
+
+    buttonRestart.hide();
+
+    loop();
 }
 
 window.onload = () => {
@@ -980,58 +1023,8 @@ window.onload = () => {
         startGame();
     };
 
-    document.getElementById('restart-button').onclick = () => {
+    /*document.getElementById('restart-button').onclick = () => {
         restartGame();
-    };
+    };*/
 
-    /*document.getElementById('knight').onclick = () => {
-        playerChoose = 0;
-        document.getElementById('knight').style.border = "solid";
-        //document.getElementById('wizard').style.border = "";
-    }
-
-    /*document.getElementById('wizard').onclick = () => {
-        playerChoose = 1;
-        document.getElementById('wizard').style.border = "solid";
-        document.getElementById('knight').style.border = "";
-    }*/
-
-    function startGame() {
-        document.querySelector('.game-intro').style.display = 'none';
-        document.querySelector('#game-board').style.display = 'initial';
-        gameIsRunning = true;
-
-        //if (playerChoose === 0) {
-            playerAttackAnimation = [knightAttackImg0, knightAttackImg1, knightAttackImg2, knightAttackImg3, knightAttackImg4,
-                                     knightAttackImg5, knightAttackImg6, knightAttackImg7, knightAttackImg8, knightAttackImg9];
-            const knightWalkAnimation = [knightWalkImg0, knightWalkImg1, knightWalkImg2, knightWalkImg3, knightWalkImg4,
-                                         knightWalkImg5, knightWalkImg6, knightWalkImg7, knightWalkImg8, knightWalkImg9];
-            playerDyingAnimation = [knightDyingImg0, knightDyingImg1, knightDyingImg2, knightDyingImg3, knightDyingImg4,
-                                    knightDyingImg5, knightDyingImg6, knightDyingImg7, knightDyingImg8, knightDyingImg9];
-            player = new Knight(knightImg, initialX, initialY, 300, 250, knightWalkAnimation);
-        //} else {
-            /*playerAttackAnimation = [wizardAttackImg0, wizardAttackImg1, wizardAttackImg2, wizardAttackImg3, wizardAttackImg4];
-            const wizardWalkAnimation = [wizardWalkImg0, wizardWalkImg1, wizardWalkImg2, wizardWalkImg3, wizardWalkImg4];
-            player = new Wizard(wizardImg, initialX, initialY, 240, 250, wizardWalkAnimation);*/
-        //}
-
-        loop();
-    }
-
-    function restartGame() {
-        document.querySelector('.game-over').style.display = 'none';
-        document.querySelector('.game-intro').style.display = 'initial';
-        level = 1;
-        turn = 0;
-        drankBeer = false;
-        gameIsRunning = false;
-        isBattling = false;
-        battleIsFinished = false;
-        playerIsDead = false;
-        enemyIsDead = false;
-        enemyAttacked = false;
-        animationPlayerAttackIsRunning = false;
-        animationEnemyAttackIsRunning = false;
-        animationIndex = -1;
-    }
 };
