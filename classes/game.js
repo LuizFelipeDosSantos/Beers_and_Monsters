@@ -1,4 +1,4 @@
-let playerChoose;
+//let playerChoose;
 let level = 1;
 let turn = 0;
 let player;
@@ -67,14 +67,14 @@ let levelEnemyAttackSound;
 let level1EnemyAttackSound, level2EnemyAttackSound, level3EnemyAttackSound, level4EnemyAttackSound;
 let knightAttackSound;
 let beerSound, treasureSound;
+let mushroomSound, cauldronSound, potionSound, bookSound;
 let winSound, gameoverSound;
 let countSoundControl = 0;
 
 let buttonAttack, buttonEnemyAttack, buttonYes, buttonNo, attackDamage;
 
 let beerImg, treasureImg;
-
-let mushroomImg;
+let mushroomImg, cauldronImg, potionImg, bookImg;
 
 let drankBeer = false;
 let gameIsRunning = false;
@@ -114,7 +114,7 @@ function loadLevel() {
                 levelEnemySound = level1EnemySound;
                 levelEnemyAttackSound = level1EnemyAttackSound;
                 level1BackgroundSound.play();
-                level1BackgroundSound.setVolume(0.3);
+                level1BackgroundSound.setVolume(0.1);
             }
             break;
         case 2:
@@ -132,7 +132,7 @@ function loadLevel() {
                 levelEnemyAttackSound = level2EnemyAttackSound;
                 level1BackgroundSound.stop();
                 level2BackgroundSound.play();
-                level2BackgroundSound.setVolume(0.3);
+                level2BackgroundSound.setVolume(0.1);
             }
             break;
         case 3:
@@ -307,6 +307,26 @@ function gotItem() {
 }
 
 function getDecisionItem() {
+    switch (level) {
+        case 1:
+            mushroomSound.play();
+            player.health -= 10;
+            break;
+        case 2:
+            cauldronSound.play();
+            player.health += 10;
+            console.log(enemy.strength);
+            enemy.strength += 2;
+            console.log(enemy.strength);
+            break;
+        case 3:
+            potionSound.play();
+            player.health += 10;
+            break;
+        case 4:
+            bookSound.play();
+            player.strength += 1;
+    }
     showItem = false;
 }
 
@@ -399,6 +419,90 @@ function decisionNo() {
     isDeciding = false;
 }
 
+function makeDecision() {
+    switch (level) {
+        case 1:
+            fill(0);
+            rect(player.x - 10, 0, 980, 120);
+            textSize(30);
+            textStyle(BOLD);
+            fill(255);
+            text('You found a mushroom on the ground.', player.x, 30);
+            text('It can have an effect on your strength, but it can also be poisonous.', player.x, 60);
+            text('Do you choose to eat it or not?', player.x, 90);
+            break;
+        case 2:
+            fill(0);
+            rect(player.x - 10, 0, 850, 120);
+            textSize(30);
+            textStyle(BOLD);
+            fill(255);
+            text('You found a cauldron with a soup.', player.x, 30);
+            text('There is no one around and this can increase your health.', player.x, 60);
+            text('Do you take some of the soup or not?', player.x, 90);
+            break;
+        case 3:
+            fill(0);
+            rect(player.x - 10, 0, 850, 120);
+            textSize(30);
+            textStyle(BOLD);
+            fill(255);
+            text('You found a potion.', player.x, 30);
+            text('It looks like a potion that can increase your health.', player.x, 60);
+            text('Do you take the potion or not?', player.x, 90);
+            break;
+        case 4:
+            fill(0);
+            rect(player.x - 80, 0, 1150, 120);
+            textSize(30);
+            textStyle(BOLD);
+            fill(255);
+            text('You found a book.', player.x - 70, 30);
+            text('This book may contain some secret about the keeper of the "Immortality Item".', player.x - 70, 60);
+            text('Do you read the book or not?', player.x - 70, 90);
+    }
+}
+
+function itemResult() {
+    switch (level) {
+        case 1:
+            fill(0);
+            rect(400 - 10, 0, 550, 90);
+            textSize(30);
+            textStyle(BOLD);
+            fill(255);
+            text('No, the mushroom was poisonous.', 400, 30);
+            text("You've lost your health a little.", 400, 60);
+            break;
+        case 2:
+            fill(0);
+            rect(100 - 10, 0, 1120, 90);
+            textSize(30);
+            textStyle(BOLD);
+            fill(255);
+            text('You increased your health, but a Troll saw you eat his food and is now angry.', 100, 30);
+            text('He gained more strength in combat.', 100, 60);
+            break;
+        case 3:
+            fill(0);
+            rect(400 - 10, 0, 650, 90);
+            textSize(30);
+            textStyle(BOLD);
+            fill(255);            
+            text('Luckily it was just a health potion anyway.', 400, 30);
+            text('You have increased your health.', 400, 60);
+            break;
+        case 4:
+            fill(0);
+            rect(200 - 10, 0, 1000, 90);
+            textSize(30);
+            textStyle(BOLD);
+            fill(255);
+            text('Now you know the weak point of the "Immortality Item" guardian.', 200, 30);
+            text('You have increased your strength.', 200, 60);
+    }
+}
+
 function preload() {
     level1BackgroundSound = loadSound('../assets/sounds/level1/background.mp3');
     level2BackgroundSound = loadSound('../assets/sounds/level2/background.mp3');
@@ -424,6 +528,10 @@ function preload() {
 
     beerSound = loadSound('../assets/sounds/beer.wav');
     treasureSound = loadSound('../assets/sounds/treasure.wav');
+    mushroomSound = loadSound('../assets/sounds/mushroom.wav');
+    cauldronSound = loadSound('../assets/sounds/cauldron.wav');
+    potionSound = loadSound('../assets/sounds/potion.wav');
+    bookSound = loadSound('../assets/sounds/book.wav');
 
     winSound = loadSound('../assets/sounds/win.wav');
     gameoverSound = loadSound('../assets/sounds/gameover.wav');
@@ -454,6 +562,9 @@ function preload() {
     treasureImg = loadImage('../assets/treasure.png');
     //Decisions
     mushroomImg = loadImage('../assets/mushroom.png');
+    cauldronImg = loadImage('../assets/cauldron.png');
+    potionImg = loadImage('../assets/potion.png');
+    bookImg = loadImage('../assets/book.png');
     //Animations
     knightWalkImg0 = loadImage('../assets/knight/knight_walk_0.png');
     knightWalkImg1 = loadImage('../assets/knight/knight_walk_1.png');
@@ -662,7 +773,7 @@ function draw() {
                         if (gotItem() && showItem && decision) {
                             getDecisionItem();
                         }
-                    }                      
+                    }
                 } else {
                     player.draw();
                     showPlayerLife();
@@ -677,10 +788,12 @@ function draw() {
                 player.x = initialX;
                 battleIsFinished = false;
                 drankBeer = false;
+                showItem = true;
+                decided = false;
             }
 
             if (!isDecisionLevel) {
-    
+
                 if ((player.x > 300) && (!battleIsFinished)) {
                     enemy.x =  player.x + 500;
                     enemy.draw();
@@ -696,22 +809,32 @@ function draw() {
                         image(beerImg, enemy.x, initialY + player.height - 100, 100, 100);
                     }
                 }
+
             } else {
                 if (showItem) {
-                    image(mushroomImg, 700, player.y + player.height - 50, 50, 50);
+                    switch (level) {
+                        case 1:
+                            image(mushroomImg, 700, player.y + player.height - 75, 75, 75);
+                            break;
+                        case 2:
+                            image(cauldronImg, 700, player.y + player.height - 100, 100, 100);
+                            break;
+                        case 3:
+                            image(potionImg, 700, player.y + player.height - 75, 75, 75);
+                            break;
+                        case 4:
+                            image(bookImg, 700, player.y + player.height - 75, 75, 75);
+                    }
+                } else {
+                    itemResult();
                 }
                 if (player.x > 200 && !decided) {
                     isDeciding = true;
-                    textSize(30);
-                    fill(255);
-                    text('You found a mushroom on the ground.', player.x, 30);
-                    text('It can have an effect on your strength, but it can also be poisonous.', player.x, 60);
-                    text('Do you choose to eat it or not?', player.x, 90);
-
+                    makeDecision();
                     buttonYes.position(player.x + player.width + 50, 150);
                     buttonYes.show();
                     buttonNo.position(player.x + player.width + 200, 150);
-                    buttonNo.show();
+                    buttonNo.show();        
                 } else {
                     buttonYes.hide();
                     buttonNo.hide();
@@ -861,7 +984,7 @@ window.onload = () => {
         restartGame();
     };
 
-    document.getElementById('knight').onclick = () => {
+    /*document.getElementById('knight').onclick = () => {
         playerChoose = 0;
         document.getElementById('knight').style.border = "solid";
         //document.getElementById('wizard').style.border = "";
@@ -878,7 +1001,7 @@ window.onload = () => {
         document.querySelector('#game-board').style.display = 'initial';
         gameIsRunning = true;
 
-        if (playerChoose === 0) {
+        //if (playerChoose === 0) {
             playerAttackAnimation = [knightAttackImg0, knightAttackImg1, knightAttackImg2, knightAttackImg3, knightAttackImg4,
                                      knightAttackImg5, knightAttackImg6, knightAttackImg7, knightAttackImg8, knightAttackImg9];
             const knightWalkAnimation = [knightWalkImg0, knightWalkImg1, knightWalkImg2, knightWalkImg3, knightWalkImg4,
@@ -886,11 +1009,11 @@ window.onload = () => {
             playerDyingAnimation = [knightDyingImg0, knightDyingImg1, knightDyingImg2, knightDyingImg3, knightDyingImg4,
                                     knightDyingImg5, knightDyingImg6, knightDyingImg7, knightDyingImg8, knightDyingImg9];
             player = new Knight(knightImg, initialX, initialY, 300, 250, knightWalkAnimation);
-        } else {
+        //} else {
             /*playerAttackAnimation = [wizardAttackImg0, wizardAttackImg1, wizardAttackImg2, wizardAttackImg3, wizardAttackImg4];
             const wizardWalkAnimation = [wizardWalkImg0, wizardWalkImg1, wizardWalkImg2, wizardWalkImg3, wizardWalkImg4];
             player = new Wizard(wizardImg, initialX, initialY, 240, 250, wizardWalkAnimation);*/
-        }
+        //}
 
         loop();
     }

@@ -58,11 +58,11 @@ class Knight extends Player {
     }
 }
 
-class Wizard extends Player {
+/*class Wizard extends Player {
     constructor(img, x, y, width, height, walkAnimation) {
         super(img, x, y, width, height, 40, 7, walkAnimation);
     }
-}
+}*/
 
 class Orc extends Character {
     constructor(img, x, y, width, height) {
