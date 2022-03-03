@@ -6,23 +6,25 @@
     text-align: center;
   }
   
-  .game-intro {
+  .game-header h1 {
+    font-size: 60px;
+    background-color: black;
+    color: darkgoldenrod;
+    font-style: bold;
+    font-family: 'VT323', monospace;
+    margin: 0;
+  }
+
+  .game-intro-body {
     padding: 0% 10%;
     background-image: url('../assets/tileset.png');
     background-position: 0 0;
     background-size: cover;
     background-repeat: no-repeat;
-    height: 92vh;
-  }
-
-  .game-intro h1 {
-    font-size: 60px;
-    color: black;
-    font-style: bold;
-    font-family: 'VT323', monospace;
+    height: 90vh;
   }
   
-  .game-intro p {
+  .game-intro-body p {
     font-size: 40px;
     font-family: "Verdana";
     color: white;
@@ -56,9 +58,9 @@
     margin-bottom: 20px;
   }
   
-  #game-board {
+  #game-board-div {
       float: left;
-      padding: 20px 0px;
+      padding: 0;
       display: none;
       font-family: 'VT323', monospace;
   }

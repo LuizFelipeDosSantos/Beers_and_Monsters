@@ -88,6 +88,7 @@ let decided = false;
 let decision;
 let showItem = true;
 let animationIndex = -1;
+let diceResult;
 
 let initialX = 0;
 let initialY = 220;
@@ -175,9 +176,9 @@ function loadLevel() {
 }
 
 function rollDice() {
-    const diceResult = Math.floor(random([1,2,3,4,5,6]));
+    const result = Math.floor(random([1,2,3,4,5,6]));
 
-    switch (diceResult) {
+    switch (result) {
         case 1:
             dice = dice1Img;
             break;
@@ -197,12 +198,24 @@ function rollDice() {
             dice = dice6Img;
     }
 
-    return diceResult;
+    return result;
+}
+
+function showDamage() {
+    if (diceResult > 0) {
+        fill(0);
+        rect(player.x + 250, player.y - 150, 240, 30);
+        textSize(30);
+        fill(255);
+        text('Bonus Damage: ' + diceResult, player.x + 280, player.y - 128);
+    }
 }
 
 function playerAttack() {
     if (!animationPlayerAttackIsRunning) {
-        const diceResult = rollDice();
+        diceResult = rollDice();
+
+        showDamage();
 
         fill(255);
         image(dice, player.x + 300, player.y, 100, 100);
@@ -243,8 +256,10 @@ function playerAttack() {
 
 function enemyAttack() {
     if (!animationEnemyAttackIsRunning) {
-        const diceResult = rollDice()
+        diceResult = rollDice()
     
+        showDamage();
+        
         fill(255);
         image(dice, player.x + 300, player.y, 100, 100);
     
@@ -389,10 +404,6 @@ function youWin() {
     gameIsRunning = false;
     playWinSound();
     background(tilesetImg);
-    fill(0);
-    textSize(60);
-    textStyle(BOLD);
-    text('BEERS & MONSTERS', 480, 42);
 
     fill(255);
     textSize(40);
@@ -422,11 +433,6 @@ function youLose() {
     gameIsRunning = false;
 
     background(tilesetImg);
-    fill(0);
-    textSize(60);
-    textStyle(BOLD);
-    text('BEERS & MONSTERS', 480, 42);
-
     fill(255);
     textSize(40);
 
@@ -739,7 +745,7 @@ function preload() {
 }
 
 function setup() {
-    const canvas = createCanvas(windowWidth, windowHeight - 50);
+    const canvas = createCanvas(windowWidth, windowHeight - 70);
     canvas.parent('game-board');
 
     buttonAttack = createButton('Attack');
@@ -859,9 +865,9 @@ function draw() {
                     if (player.x > 200 && !decided) {
                         isDeciding = true;
                         makeDecision();
-                        buttonYes.position(player.x + player.width + 50, 150);
+                        buttonYes.position(player.x + player.width + 50, 170);
                         buttonYes.show();
-                        buttonNo.position(player.x + player.width + 200, 150);
+                        buttonNo.position(player.x + player.width + 200, 170);
                         buttonNo.show();        
                     } else {
                         buttonYes.hide();
@@ -910,6 +916,8 @@ function draw() {
                     fill(255,0,0);
                     rect(enemy.x + 40, enemy.y - 50, enemy.health * 5, 20);
     
+                    showDamage();
+
                     //Dice
                     fill(255);
                     image(dice, player.x + 300, player.y, 100, 100);
@@ -935,6 +943,8 @@ function draw() {
                 } else {
                     enemy.draw();
     
+                    showDamage();
+            
                     //Dice
                     fill(255);
                     image(dice, player.x + 300, player.y, 100, 100);
@@ -967,6 +977,8 @@ function draw() {
                 player.draw();
                 showPlayerLife();
     
+                showDamage();
+
                 //Dice
                 fill(255);
                 image(dice, player.x + 300, player.y, 100, 100);
@@ -1002,7 +1014,7 @@ function draw() {
 
 function startGame() {
     document.querySelector('.game-intro').style.display = 'none';
-    document.querySelector('#game-board').style.display = 'initial';
+    document.querySelector('#game-board-div').style.display = 'initial';
     gameIsRunning = true;
 
     playerAttackAnimation = [knightAttackImg0, knightAttackImg1, knightAttackImg2, knightAttackImg3, knightAttackImg4,
