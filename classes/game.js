@@ -8,7 +8,7 @@ let knightAttackImg0, knightAttackImg1, knightAttackImg2, knightAttackImg3, knig
     knightAttackImg5, knightAttackImg6, knightAttackImg7, knightAttackImg8, knightAttackImg9;
 let knightDyingImg0, knightDyingImg1, knightDyingImg2, knightDyingImg3, knightDyingImg4,
     knightDyingImg5, knightDyingImg6, knightDyingImg7, knightDyingImg8, knightDyingImg9;
-let knightHealthBarWidth = 250;
+let knightHealthBarWidth = 300;
 
 let playerAttackAnimation = [];
 let playerDyingAnimation = [];
@@ -20,14 +20,14 @@ let orcAttackImg0, orcAttackImg1, orcAttackImg2, orcAttackImg3, orcAttackImg4, o
 let orcDyingImg0, orcDyingImg1, orcDyingImg2, orcDyingImg3, orcDyingImg4, orcDyingImg5,
     orcDyingImg6, orcDyingImg7, orcDyingImg8, orcDyingImg9, orcDyingImg10, orcDyingImg11,
     orcDyingImg12, orcDyingImg13, orcDyingImg14;
-let orcHealthBarWidth = 150;
+let orcHealthBarWidth = 200;
 
 let trollImg;
 let trollAttackImg0, trollAttackImg1, trollAttackImg2, trollAttackImg3, trollAttackImg4,
     trollAttackImg5, trollAttackImg6, trollAttackImg7, trollAttackImg8, trollAttackImg9;
 let trollDyingImg0, trollDyingImg1, trollDyingImg2, trollDyingImg3, trollDyingImg4,
     trollDyingImg5, trollDyingImg6, trollDyingImg7, trollDyingImg8, trollDyingImg9;
-let trollHealthBarWidth = 200;
+let trollHealthBarWidth = 250;
 
 let golemImg;
 let golemAttackImg0, golemAttackImg1, golemAttackImg2, golemAttackImg3, golemAttackImg4, golemAttackImg5,
@@ -35,7 +35,7 @@ let golemAttackImg0, golemAttackImg1, golemAttackImg2, golemAttackImg3, golemAtt
 let golemDyingImg0, golemDyingImg1, golemDyingImg2, golemDyingImg3, golemDyingImg4, golemDyingImg5,
     golemDyingImg6, golemDyingImg7, golemDyingImg8, golemDyingImg9, golemDyingImg10, golemDyingImg11,
     golemDyingImg12, golemDyingImg13, golemDyingImg14;
-let golemHealthBarWidth = 250;
+let golemHealthBarWidth = 300;
 
 let minotaurImg;
 let minotaurAttackImg0, minotaurAttackImg1, minotaurAttackImg2, minotaurAttackImg3, minotaurAttackImg4, minotaurAttackImg5,
@@ -43,7 +43,7 @@ let minotaurAttackImg0, minotaurAttackImg1, minotaurAttackImg2, minotaurAttackIm
 let minotaurDyingImg0, minotaurDyingImg1, minotaurDyingImg2, minotaurDyingImg3, minotaurDyingImg4, minotaurDyingImg5,
     minotaurDyingImg6, minotaurDyingImg7, minotaurDyingImg8, minotaurDyingImg9, minotaurDyingImg10, minotaurDyingImg11,
     minotaurDyingImg12, minotaurDyingImg13, minotaurDyingImg14;
-let minotaurHealthBarWidth = 300;
+let minotaurHealthBarWidth = 350;
 
 let enemyAttackAnimation = [];
 let enemyDyingAnimation = [];

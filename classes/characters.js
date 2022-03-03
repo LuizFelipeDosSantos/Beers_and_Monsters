@@ -54,7 +54,7 @@ class Player extends Character {
 
 class Knight extends Player {
     constructor(img, x, y, width, height, walkAnimation) {
-        super(img, x, y, width, height, 50, 6, walkAnimation);
+        super(img, x, y, width, height, 60, 6, walkAnimation);
     }
 }
 
@@ -66,24 +66,24 @@ class Knight extends Player {
 
 class Orc extends Character {
     constructor(img, x, y, width, height) {
-        super(img, x, y, width, height, 30, 2);
+        super(img, x, y, width, height, 40, 2);
     }
 }
 
 class Troll extends Character {
     constructor(img, x, y, width, height) {
-        super(img, x, y, width, height, 40, 3);
+        super(img, x, y, width, height, 50, 3);
     }
 }
 
 class Golem extends Character {
     constructor(img, x, y, width, height) {
-        super(img, x, y, width, height, 50, 4);
+        super(img, x, y, width, height, 60, 4);
     }
 }
 
 class Minotaur extends Character {
     constructor(img, x, y, width, height) {
-        super(img, x, y, width, height, 60, 5);
+        super(img, x, y, width, height, 70, 5);
     }
 }
