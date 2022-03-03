@@ -1,4 +1,4 @@
-let level = 1;
+let level = 4.5;
 let turn = 0;
 let player;
 let knightImg;
@@ -111,6 +111,7 @@ function loadLevel() {
                 levelEnemyAttackSound = level1EnemyAttackSound;
                 level1BackgroundSound.play();
                 level1BackgroundSound.setVolume(0.1);
+                level1BackgroundSound.loop();
             }
             break;
         case 2:
@@ -129,6 +130,7 @@ function loadLevel() {
                 level1BackgroundSound.stop();
                 level2BackgroundSound.play();
                 level2BackgroundSound.setVolume(0.1);
+                level2BackgroundSound.loop();
             }
             break;
         case 3:
@@ -148,6 +150,7 @@ function loadLevel() {
                 level2BackgroundSound.stop();
                 level3BackgroundSound.play();
                 level3BackgroundSound.setVolume(0.1);
+                level3BackgroundSound.loop();
             }
             break;
         case 4:
@@ -167,6 +170,7 @@ function loadLevel() {
                 level3BackgroundSound.stop();
                 level4BackgroundSound.play();
                 level4BackgroundSound.setVolume(0.1);
+                level4BackgroundSound.loop();
             }
             break;
         default:
@@ -919,14 +923,18 @@ function draw() {
     
                     //Player's Turn
                     if (turn === 0) {
-                        buttonAttack.position(player.x + 20, player.y + 300);
+                        buttonAttack.position(player.x + 20, player.y + 320);
                         buttonAttack.show();
                         buttonEnemyAttack.hide();
                         if (animationPlayerAttackIsRunning) {
                             playerAttack();
                         }
                     } else { //Enemy's Turn
-                        buttonEnemyAttack.position(enemy.x + 20, enemy.y + 300);
+                        if (enemy instanceof Orc || enemy instanceof Golem) {
+                            buttonEnemyAttack.position(enemy.x + 20, enemy.y + 320);
+                        } else {
+                            buttonEnemyAttack.position(enemy.x + 40, enemy.y + 410);
+                        }
                         if (!player.isDead()) {
                             buttonEnemyAttack.show();
                         }

@@ -31,22 +31,6 @@
     font-family: 'VT323', monospace;
   }
   
-  /*.class-choose {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-  }
-
-  .class-choose #wizard {
-    width: 15vw;
-    height: 30vh;
-  }
-
-  .class-choose #knight {
-    width: 18vw;
-    height: 30vh;
-  }*/
-  
   body button {
     font-size: 30px;
     background-color: black;
