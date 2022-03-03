@@ -537,211 +537,211 @@ function itemResult() {
 }
 
 function preload() {
-    fontVT323 = loadFont('../assets/VT323-Regular.ttf');
+    fontVT323 = loadFont('./assets/VT323-Regular.ttf');
 
-    level1BackgroundSound = loadSound('../assets/sounds/level1/background.mp3');
-    level2BackgroundSound = loadSound('../assets/sounds/level2/background.mp3');
-    level3BackgroundSound = loadSound('../assets/sounds/level3/background.mp3');
-    level4BackgroundSound = loadSound('../assets/sounds/level4/background.mp3');
+    level1BackgroundSound = loadSound('./assets/sounds/level1/background.mp3');
+    level2BackgroundSound = loadSound('./assets/sounds/level2/background.mp3');
+    level3BackgroundSound = loadSound('./assets/sounds/level3/background.mp3');
+    level4BackgroundSound = loadSound('./assets/sounds/level4/background.mp3');
 
-    level1FootstepSound = loadSound('../assets/sounds/level1/footstep.wav');
-    level2FootstepSound = loadSound('../assets/sounds/level2/footstep.wav');
-    level3FootstepSound = loadSound('../assets/sounds/level3/footstep.wav');
-    level4FootstepSound = loadSound('../assets/sounds/level4/footstep.wav');
+    level1FootstepSound = loadSound('./assets/sounds/level1/footstep.wav');
+    level2FootstepSound = loadSound('./assets/sounds/level2/footstep.wav');
+    level3FootstepSound = loadSound('./assets/sounds/level3/footstep.wav');
+    level4FootstepSound = loadSound('./assets/sounds/level4/footstep.wav');
 
-    level1EnemySound = loadSound('../assets/sounds/level1/enemy.wav');
-    level2EnemySound = loadSound('../assets/sounds/level2/enemy.wav');
-    level3EnemySound = loadSound('../assets/sounds/level3/enemy.wav');
-    level4EnemySound = loadSound('../assets/sounds/level4/enemy.wav');
+    level1EnemySound = loadSound('./assets/sounds/level1/enemy.wav');
+    level2EnemySound = loadSound('./assets/sounds/level2/enemy.wav');
+    level3EnemySound = loadSound('./assets/sounds/level3/enemy.wav');
+    level4EnemySound = loadSound('./assets/sounds/level4/enemy.wav');
 
-    level1EnemyAttackSound = loadSound('../assets/sounds/level1/enemy_attack.wav');
-    level2EnemyAttackSound = loadSound('../assets/sounds/level2/enemy_attack.wav');
-    level3EnemyAttackSound = loadSound('../assets/sounds/level3/enemy_attack.wav');
-    level4EnemyAttackSound = loadSound('../assets/sounds/level4/enemy_attack.wav');
+    level1EnemyAttackSound = loadSound('./assets/sounds/level1/enemy_attack.wav');
+    level2EnemyAttackSound = loadSound('./assets/sounds/level2/enemy_attack.wav');
+    level3EnemyAttackSound = loadSound('./assets/sounds/level3/enemy_attack.wav');
+    level4EnemyAttackSound = loadSound('./assets/sounds/level4/enemy_attack.wav');
 
-    knightAttackSound = loadSound('../assets/sounds/knight_attack.wav');
+    knightAttackSound = loadSound('./assets/sounds/knight_attack.wav');
 
-    beerSound = loadSound('../assets/sounds/beer.wav');
-    treasureSound = loadSound('../assets/sounds/treasure.wav');
-    mushroomSound = loadSound('../assets/sounds/mushroom.wav');
-    cauldronSound = loadSound('../assets/sounds/cauldron.wav');
-    potionSound = loadSound('../assets/sounds/potion.wav');
-    bookSound = loadSound('../assets/sounds/book.wav');
+    beerSound = loadSound('./assets/sounds/beer.wav');
+    treasureSound = loadSound('./assets/sounds/treasure.wav');
+    mushroomSound = loadSound('./assets/sounds/mushroom.wav');
+    cauldronSound = loadSound('./assets/sounds/cauldron.wav');
+    potionSound = loadSound('./assets/sounds/potion.wav');
+    bookSound = loadSound('./assets/sounds/book.wav');
 
-    winSound = loadSound('../assets/sounds/win.wav');
-    gameoverSound = loadSound('../assets/sounds/gameover.wav');
+    winSound = loadSound('./assets/sounds/win.wav');
+    gameoverSound = loadSound('./assets/sounds/gameover.wav');
 
     //Characters
-    knightImg = loadImage('../assets/knight/knight.png');
-    orcImg = loadImage('../assets/orc/orc.png');
-    trollImg = loadImage('../assets/troll/troll.png');
-    golemImg = loadImage('../assets/golem/golem.png');
-    minotaurImg = loadImage('../assets/minotaur/minotaur.png');
+    knightImg = loadImage('./assets/knight/knight.png');
+    orcImg = loadImage('./assets/orc/orc.png');
+    trollImg = loadImage('./assets/troll/troll.png');
+    golemImg = loadImage('./assets/golem/golem.png');
+    minotaurImg = loadImage('./assets/minotaur/minotaur.png');
     //Heart
-    heartImg = loadImage('../assets/heart.png');
+    heartImg = loadImage('./assets/heart.png');
     //Dices
-    dice1Img = loadImage('../assets/dice_1.png');
-    dice2Img = loadImage('../assets/dice_2.png');
-    dice3Img = loadImage('../assets/dice_3.png');
-    dice4Img = loadImage('../assets/dice_4.png');
-    dice5Img = loadImage('../assets/dice_5.png');
-    dice6Img = loadImage('../assets/dice_6.png');
+    dice1Img = loadImage('./assets/dice_1.png');
+    dice2Img = loadImage('./assets/dice_2.png');
+    dice3Img = loadImage('./assets/dice_3.png');
+    dice4Img = loadImage('./assets/dice_4.png');
+    dice5Img = loadImage('./assets/dice_5.png');
+    dice6Img = loadImage('./assets/dice_6.png');
     //Backgrounds
-    forestImg = loadImage('../assets/forest.png');
-    ruinsImg = loadImage('../assets/ruins.png');
-    graveyardImg = loadImage('../assets/graveyard.png');
-    castleImg = loadImage('../assets/castle.png');
-    tilesetImg = loadImage('../assets/tileset.png');
+    forestImg = loadImage('./assets/forest.png');
+    ruinsImg = loadImage('./assets/ruins.png');
+    graveyardImg = loadImage('./assets/graveyard.png');
+    castleImg = loadImage('./assets/castle.png');
+    tilesetImg = loadImage('./assets/tileset.png');
     //Beer and Treasure
-    beerImg = loadImage('../assets/beer.png');
-    treasureImg = loadImage('../assets/treasure.png');
+    beerImg = loadImage('./assets/beer.png');
+    treasureImg = loadImage('./assets/treasure.png');
     //Decisions
-    mushroomImg = loadImage('../assets/mushroom.png');
-    cauldronImg = loadImage('../assets/cauldron.png');
-    potionImg = loadImage('../assets/potion.png');
-    bookImg = loadImage('../assets/book.png');
+    mushroomImg = loadImage('./assets/mushroom.png');
+    cauldronImg = loadImage('./assets/cauldron.png');
+    potionImg = loadImage('./assets/potion.png');
+    bookImg = loadImage('./assets/book.png');
     //Animations
-    knightWalkImg0 = loadImage('../assets/knight/knight_walk_0.png');
-    knightWalkImg1 = loadImage('../assets/knight/knight_walk_1.png');
-    knightWalkImg2 = loadImage('../assets/knight/knight_walk_2.png');
-    knightWalkImg3 = loadImage('../assets/knight/knight_walk_3.png');
-    knightWalkImg4 = loadImage('../assets/knight/knight_walk_4.png');
-    knightWalkImg5 = loadImage('../assets/knight/knight_walk_5.png');
-    knightWalkImg6 = loadImage('../assets/knight/knight_walk_6.png');
-    knightWalkImg7 = loadImage('../assets/knight/knight_walk_7.png');
-    knightWalkImg8 = loadImage('../assets/knight/knight_walk_8.png');
-    knightWalkImg9 = loadImage('../assets/knight/knight_walk_9.png');
+    knightWalkImg0 = loadImage('./assets/knight/knight_walk_0.png');
+    knightWalkImg1 = loadImage('./assets/knight/knight_walk_1.png');
+    knightWalkImg2 = loadImage('./assets/knight/knight_walk_2.png');
+    knightWalkImg3 = loadImage('./assets/knight/knight_walk_3.png');
+    knightWalkImg4 = loadImage('./assets/knight/knight_walk_4.png');
+    knightWalkImg5 = loadImage('./assets/knight/knight_walk_5.png');
+    knightWalkImg6 = loadImage('./assets/knight/knight_walk_6.png');
+    knightWalkImg7 = loadImage('./assets/knight/knight_walk_7.png');
+    knightWalkImg8 = loadImage('./assets/knight/knight_walk_8.png');
+    knightWalkImg9 = loadImage('./assets/knight/knight_walk_9.png');
 
-    knightAttackImg0 = loadImage('../assets/knight/knight_attack_0.png');
-    knightAttackImg1 = loadImage('../assets/knight/knight_attack_1.png');
-    knightAttackImg2 = loadImage('../assets/knight/knight_attack_2.png');
-    knightAttackImg3 = loadImage('../assets/knight/knight_attack_3.png');
-    knightAttackImg4 = loadImage('../assets/knight/knight_attack_4.png');
-    knightAttackImg5 = loadImage('../assets/knight/knight_attack_5.png');
-    knightAttackImg6 = loadImage('../assets/knight/knight_attack_6.png');
-    knightAttackImg7 = loadImage('../assets/knight/knight_attack_7.png');
-    knightAttackImg8 = loadImage('../assets/knight/knight_attack_8.png');
-    knightAttackImg9 = loadImage('../assets/knight/knight_attack_9.png');
+    knightAttackImg0 = loadImage('./assets/knight/knight_attack_0.png');
+    knightAttackImg1 = loadImage('./assets/knight/knight_attack_1.png');
+    knightAttackImg2 = loadImage('./assets/knight/knight_attack_2.png');
+    knightAttackImg3 = loadImage('./assets/knight/knight_attack_3.png');
+    knightAttackImg4 = loadImage('./assets/knight/knight_attack_4.png');
+    knightAttackImg5 = loadImage('./assets/knight/knight_attack_5.png');
+    knightAttackImg6 = loadImage('./assets/knight/knight_attack_6.png');
+    knightAttackImg7 = loadImage('./assets/knight/knight_attack_7.png');
+    knightAttackImg8 = loadImage('./assets/knight/knight_attack_8.png');
+    knightAttackImg9 = loadImage('./assets/knight/knight_attack_9.png');
 
-    knightDyingImg0 = loadImage('../assets/knight/knight_die_0.png');
-    knightDyingImg1 = loadImage('../assets/knight/knight_die_1.png');
-    knightDyingImg2 = loadImage('../assets/knight/knight_die_2.png');
-    knightDyingImg3 = loadImage('../assets/knight/knight_die_3.png');
-    knightDyingImg4 = loadImage('../assets/knight/knight_die_4.png');
-    knightDyingImg5 = loadImage('../assets/knight/knight_die_5.png');
-    knightDyingImg6 = loadImage('../assets/knight/knight_die_6.png');
-    knightDyingImg7 = loadImage('../assets/knight/knight_die_7.png');
-    knightDyingImg8 = loadImage('../assets/knight/knight_die_8.png');
-    knightDyingImg9 = loadImage('../assets/knight/knight_die_9.png');
+    knightDyingImg0 = loadImage('./assets/knight/knight_die_0.png');
+    knightDyingImg1 = loadImage('./assets/knight/knight_die_1.png');
+    knightDyingImg2 = loadImage('./assets/knight/knight_die_2.png');
+    knightDyingImg3 = loadImage('./assets/knight/knight_die_3.png');
+    knightDyingImg4 = loadImage('./assets/knight/knight_die_4.png');
+    knightDyingImg5 = loadImage('./assets/knight/knight_die_5.png');
+    knightDyingImg6 = loadImage('./assets/knight/knight_die_6.png');
+    knightDyingImg7 = loadImage('./assets/knight/knight_die_7.png');
+    knightDyingImg8 = loadImage('./assets/knight/knight_die_8.png');
+    knightDyingImg9 = loadImage('./assets/knight/knight_die_9.png');
 
-    orcAttackImg0 = loadImage('../assets/orc/orc_attack_0.png');
-    orcAttackImg1 = loadImage('../assets/orc/orc_attack_1.png');
-    orcAttackImg2 = loadImage('../assets/orc/orc_attack_2.png');
-    orcAttackImg3 = loadImage('../assets/orc/orc_attack_3.png');
-    orcAttackImg4 = loadImage('../assets/orc/orc_attack_4.png');
-    orcAttackImg5 = loadImage('../assets/orc/orc_attack_5.png');
-    orcAttackImg6 = loadImage('../assets/orc/orc_attack_6.png');
-    orcAttackImg7 = loadImage('../assets/orc/orc_attack_7.png');
-    orcAttackImg8 = loadImage('../assets/orc/orc_attack_8.png');
-    orcAttackImg9 = loadImage('../assets/orc/orc_attack_9.png');
-    orcAttackImg10 = loadImage('../assets/orc/orc_attack_10.png');
-    orcAttackImg11 = loadImage('../assets/orc/orc_attack_11.png');
+    orcAttackImg0 = loadImage('./assets/orc/orc_attack_0.png');
+    orcAttackImg1 = loadImage('./assets/orc/orc_attack_1.png');
+    orcAttackImg2 = loadImage('./assets/orc/orc_attack_2.png');
+    orcAttackImg3 = loadImage('./assets/orc/orc_attack_3.png');
+    orcAttackImg4 = loadImage('./assets/orc/orc_attack_4.png');
+    orcAttackImg5 = loadImage('./assets/orc/orc_attack_5.png');
+    orcAttackImg6 = loadImage('./assets/orc/orc_attack_6.png');
+    orcAttackImg7 = loadImage('./assets/orc/orc_attack_7.png');
+    orcAttackImg8 = loadImage('./assets/orc/orc_attack_8.png');
+    orcAttackImg9 = loadImage('./assets/orc/orc_attack_9.png');
+    orcAttackImg10 = loadImage('./assets/orc/orc_attack_10.png');
+    orcAttackImg11 = loadImage('./assets/orc/orc_attack_11.png');
 
-    orcDyingImg0 = loadImage('../assets/orc/orc_dying_0.png');
-    orcDyingImg1 = loadImage('../assets/orc/orc_dying_1.png');
-    orcDyingImg2 = loadImage('../assets/orc/orc_dying_2.png');
-    orcDyingImg3 = loadImage('../assets/orc/orc_dying_3.png');
-    orcDyingImg4 = loadImage('../assets/orc/orc_dying_4.png');
-    orcDyingImg5 = loadImage('../assets/orc/orc_dying_5.png');
-    orcDyingImg6 = loadImage('../assets/orc/orc_dying_6.png');
-    orcDyingImg7 = loadImage('../assets/orc/orc_dying_7.png');
-    orcDyingImg8 = loadImage('../assets/orc/orc_dying_8.png');
-    orcDyingImg9 = loadImage('../assets/orc/orc_dying_9.png');
-    orcDyingImg10 = loadImage('../assets/orc/orc_dying_10.png');
-    orcDyingImg11 = loadImage('../assets/orc/orc_dying_11.png');
-    orcDyingImg12 = loadImage('../assets/orc/orc_dying_12.png');
-    orcDyingImg13 = loadImage('../assets/orc/orc_dying_13.png');
-    orcDyingImg14 = loadImage('../assets/orc/orc_dying_14.png');
+    orcDyingImg0 = loadImage('./assets/orc/orc_dying_0.png');
+    orcDyingImg1 = loadImage('./assets/orc/orc_dying_1.png');
+    orcDyingImg2 = loadImage('./assets/orc/orc_dying_2.png');
+    orcDyingImg3 = loadImage('./assets/orc/orc_dying_3.png');
+    orcDyingImg4 = loadImage('./assets/orc/orc_dying_4.png');
+    orcDyingImg5 = loadImage('./assets/orc/orc_dying_5.png');
+    orcDyingImg6 = loadImage('./assets/orc/orc_dying_6.png');
+    orcDyingImg7 = loadImage('./assets/orc/orc_dying_7.png');
+    orcDyingImg8 = loadImage('./assets/orc/orc_dying_8.png');
+    orcDyingImg9 = loadImage('./assets/orc/orc_dying_9.png');
+    orcDyingImg10 = loadImage('./assets/orc/orc_dying_10.png');
+    orcDyingImg11 = loadImage('./assets/orc/orc_dying_11.png');
+    orcDyingImg12 = loadImage('./assets/orc/orc_dying_12.png');
+    orcDyingImg13 = loadImage('./assets/orc/orc_dying_13.png');
+    orcDyingImg14 = loadImage('./assets/orc/orc_dying_14.png');
 
-    trollAttackImg0 = loadImage('../assets/troll/troll_attack_0.png');
-    trollAttackImg1 = loadImage('../assets/troll/troll_attack_1.png');
-    trollAttackImg2 = loadImage('../assets/troll/troll_attack_2.png');
-    trollAttackImg3 = loadImage('../assets/troll/troll_attack_3.png');
-    trollAttackImg4 = loadImage('../assets/troll/troll_attack_4.png');
-    trollAttackImg5 = loadImage('../assets/troll/troll_attack_5.png');
-    trollAttackImg6 = loadImage('../assets/troll/troll_attack_6.png');
-    trollAttackImg7 = loadImage('../assets/troll/troll_attack_7.png');
-    trollAttackImg8 = loadImage('../assets/troll/troll_attack_8.png');
-    trollAttackImg9 = loadImage('../assets/troll/troll_attack_9.png');
+    trollAttackImg0 = loadImage('./assets/troll/troll_attack_0.png');
+    trollAttackImg1 = loadImage('./assets/troll/troll_attack_1.png');
+    trollAttackImg2 = loadImage('./assets/troll/troll_attack_2.png');
+    trollAttackImg3 = loadImage('./assets/troll/troll_attack_3.png');
+    trollAttackImg4 = loadImage('./assets/troll/troll_attack_4.png');
+    trollAttackImg5 = loadImage('./assets/troll/troll_attack_5.png');
+    trollAttackImg6 = loadImage('./assets/troll/troll_attack_6.png');
+    trollAttackImg7 = loadImage('./assets/troll/troll_attack_7.png');
+    trollAttackImg8 = loadImage('./assets/troll/troll_attack_8.png');
+    trollAttackImg9 = loadImage('./assets/troll/troll_attack_9.png');
 
-    trollDyingImg0 = loadImage('../assets/troll/troll_dying_0.png');
-    trollDyingImg1 = loadImage('../assets/troll/troll_dying_1.png');
-    trollDyingImg2 = loadImage('../assets/troll/troll_dying_2.png');
-    trollDyingImg3 = loadImage('../assets/troll/troll_dying_3.png');
-    trollDyingImg4 = loadImage('../assets/troll/troll_dying_4.png');
-    trollDyingImg5 = loadImage('../assets/troll/troll_dying_5.png');
-    trollDyingImg6 = loadImage('../assets/troll/troll_dying_6.png');
-    trollDyingImg7 = loadImage('../assets/troll/troll_dying_7.png');
-    trollDyingImg8 = loadImage('../assets/troll/troll_dying_8.png');
-    trollDyingImg9 = loadImage('../assets/troll/troll_dying_9.png');
+    trollDyingImg0 = loadImage('./assets/troll/troll_dying_0.png');
+    trollDyingImg1 = loadImage('./assets/troll/troll_dying_1.png');
+    trollDyingImg2 = loadImage('./assets/troll/troll_dying_2.png');
+    trollDyingImg3 = loadImage('./assets/troll/troll_dying_3.png');
+    trollDyingImg4 = loadImage('./assets/troll/troll_dying_4.png');
+    trollDyingImg5 = loadImage('./assets/troll/troll_dying_5.png');
+    trollDyingImg6 = loadImage('./assets/troll/troll_dying_6.png');
+    trollDyingImg7 = loadImage('./assets/troll/troll_dying_7.png');
+    trollDyingImg8 = loadImage('./assets/troll/troll_dying_8.png');
+    trollDyingImg9 = loadImage('./assets/troll/troll_dying_9.png');
 
-    golemAttackImg0 = loadImage('../assets/golem/golem_attack_0.png');
-    golemAttackImg1 = loadImage('../assets/golem/golem_attack_1.png');
-    golemAttackImg2 = loadImage('../assets/golem/golem_attack_2.png');
-    golemAttackImg3 = loadImage('../assets/golem/golem_attack_3.png');
-    golemAttackImg4 = loadImage('../assets/golem/golem_attack_4.png');
-    golemAttackImg5 = loadImage('../assets/golem/golem_attack_5.png');
-    golemAttackImg6 = loadImage('../assets/golem/golem_attack_6.png');
-    golemAttackImg7 = loadImage('../assets/golem/golem_attack_7.png');
-    golemAttackImg8 = loadImage('../assets/golem/golem_attack_8.png');
-    golemAttackImg9 = loadImage('../assets/golem/golem_attack_9.png');
-    golemAttackImg10 = loadImage('../assets/golem/golem_attack_10.png');
-    golemAttackImg11 = loadImage('../assets/golem/golem_attack_11.png');
+    golemAttackImg0 = loadImage('./assets/golem/golem_attack_0.png');
+    golemAttackImg1 = loadImage('./assets/golem/golem_attack_1.png');
+    golemAttackImg2 = loadImage('./assets/golem/golem_attack_2.png');
+    golemAttackImg3 = loadImage('./assets/golem/golem_attack_3.png');
+    golemAttackImg4 = loadImage('./assets/golem/golem_attack_4.png');
+    golemAttackImg5 = loadImage('./assets/golem/golem_attack_5.png');
+    golemAttackImg6 = loadImage('./assets/golem/golem_attack_6.png');
+    golemAttackImg7 = loadImage('./assets/golem/golem_attack_7.png');
+    golemAttackImg8 = loadImage('./assets/golem/golem_attack_8.png');
+    golemAttackImg9 = loadImage('./assets/golem/golem_attack_9.png');
+    golemAttackImg10 = loadImage('./assets/golem/golem_attack_10.png');
+    golemAttackImg11 = loadImage('./assets/golem/golem_attack_11.png');
 
-    golemDyingImg0 = loadImage('../assets/golem/golem_dying_0.png');
-    golemDyingImg1 = loadImage('../assets/golem/golem_dying_1.png');
-    golemDyingImg2 = loadImage('../assets/golem/golem_dying_2.png');
-    golemDyingImg3 = loadImage('../assets/golem/golem_dying_3.png');
-    golemDyingImg4 = loadImage('../assets/golem/golem_dying_4.png');
-    golemDyingImg5 = loadImage('../assets/golem/golem_dying_5.png');
-    golemDyingImg6 = loadImage('../assets/golem/golem_dying_6.png');
-    golemDyingImg7 = loadImage('../assets/golem/golem_dying_7.png');
-    golemDyingImg8 = loadImage('../assets/golem/golem_dying_8.png');
-    golemDyingImg9 = loadImage('../assets/golem/golem_dying_9.png');
-    golemDyingImg10 = loadImage('../assets/golem/golem_dying_10.png');
-    golemDyingImg11 = loadImage('../assets/golem/golem_dying_11.png');
-    golemDyingImg12 = loadImage('../assets/golem/golem_dying_12.png');
-    golemDyingImg13 = loadImage('../assets/golem/golem_dying_13.png');
-    golemDyingImg14 = loadImage('../assets/golem/golem_dying_14.png');
+    golemDyingImg0 = loadImage('./assets/golem/golem_dying_0.png');
+    golemDyingImg1 = loadImage('./assets/golem/golem_dying_1.png');
+    golemDyingImg2 = loadImage('./assets/golem/golem_dying_2.png');
+    golemDyingImg3 = loadImage('./assets/golem/golem_dying_3.png');
+    golemDyingImg4 = loadImage('./assets/golem/golem_dying_4.png');
+    golemDyingImg5 = loadImage('./assets/golem/golem_dying_5.png');
+    golemDyingImg6 = loadImage('./assets/golem/golem_dying_6.png');
+    golemDyingImg7 = loadImage('./assets/golem/golem_dying_7.png');
+    golemDyingImg8 = loadImage('./assets/golem/golem_dying_8.png');
+    golemDyingImg9 = loadImage('./assets/golem/golem_dying_9.png');
+    golemDyingImg10 = loadImage('./assets/golem/golem_dying_10.png');
+    golemDyingImg11 = loadImage('./assets/golem/golem_dying_11.png');
+    golemDyingImg12 = loadImage('./assets/golem/golem_dying_12.png');
+    golemDyingImg13 = loadImage('./assets/golem/golem_dying_13.png');
+    golemDyingImg14 = loadImage('./assets/golem/golem_dying_14.png');
 
-    minotaurAttackImg0 = loadImage('../assets/minotaur/minotaur_attack_0.png');
-    minotaurAttackImg1 = loadImage('../assets/minotaur/minotaur_attack_1.png');
-    minotaurAttackImg2 = loadImage('../assets/minotaur/minotaur_attack_2.png');
-    minotaurAttackImg3 = loadImage('../assets/minotaur/minotaur_attack_3.png');
-    minotaurAttackImg4 = loadImage('../assets/minotaur/minotaur_attack_4.png');
-    minotaurAttackImg5 = loadImage('../assets/minotaur/minotaur_attack_5.png');
-    minotaurAttackImg6 = loadImage('../assets/minotaur/minotaur_attack_6.png');
-    minotaurAttackImg7 = loadImage('../assets/minotaur/minotaur_attack_7.png');
-    minotaurAttackImg8 = loadImage('../assets/minotaur/minotaur_attack_8.png');
-    minotaurAttackImg9 = loadImage('../assets/minotaur/minotaur_attack_9.png');
-    minotaurAttackImg10 = loadImage('../assets/minotaur/minotaur_attack_10.png');
-    minotaurAttackImg11 = loadImage('../assets/minotaur/minotaur_attack_11.png');
+    minotaurAttackImg0 = loadImage('./assets/minotaur/minotaur_attack_0.png');
+    minotaurAttackImg1 = loadImage('./assets/minotaur/minotaur_attack_1.png');
+    minotaurAttackImg2 = loadImage('./assets/minotaur/minotaur_attack_2.png');
+    minotaurAttackImg3 = loadImage('./assets/minotaur/minotaur_attack_3.png');
+    minotaurAttackImg4 = loadImage('./assets/minotaur/minotaur_attack_4.png');
+    minotaurAttackImg5 = loadImage('./assets/minotaur/minotaur_attack_5.png');
+    minotaurAttackImg6 = loadImage('./assets/minotaur/minotaur_attack_6.png');
+    minotaurAttackImg7 = loadImage('./assets/minotaur/minotaur_attack_7.png');
+    minotaurAttackImg8 = loadImage('./assets/minotaur/minotaur_attack_8.png');
+    minotaurAttackImg9 = loadImage('./assets/minotaur/minotaur_attack_9.png');
+    minotaurAttackImg10 = loadImage('./assets/minotaur/minotaur_attack_10.png');
+    minotaurAttackImg11 = loadImage('./assets/minotaur/minotaur_attack_11.png');
 
-    minotaurDyingImg0 = loadImage('../assets/minotaur/minotaur_dying_0.png');
-    minotaurDyingImg1 = loadImage('../assets/minotaur/minotaur_dying_1.png');
-    minotaurDyingImg2 = loadImage('../assets/minotaur/minotaur_dying_2.png');
-    minotaurDyingImg3 = loadImage('../assets/minotaur/minotaur_dying_3.png');
-    minotaurDyingImg4 = loadImage('../assets/minotaur/minotaur_dying_4.png');
-    minotaurDyingImg5 = loadImage('../assets/minotaur/minotaur_dying_5.png');
-    minotaurDyingImg6 = loadImage('../assets/minotaur/minotaur_dying_6.png');
-    minotaurDyingImg7 = loadImage('../assets/minotaur/minotaur_dying_7.png');
-    minotaurDyingImg8 = loadImage('../assets/minotaur/minotaur_dying_8.png');
-    minotaurDyingImg9 = loadImage('../assets/minotaur/minotaur_dying_9.png');
-    minotaurDyingImg10 = loadImage('../assets/minotaur/minotaur_dying_10.png');
-    minotaurDyingImg11 = loadImage('../assets/minotaur/minotaur_dying_11.png');
-    minotaurDyingImg12 = loadImage('../assets/minotaur/minotaur_dying_12.png');
-    minotaurDyingImg13 = loadImage('../assets/minotaur/minotaur_dying_13.png');
-    minotaurDyingImg14 = loadImage('../assets/minotaur/minotaur_dying_14.png');
+    minotaurDyingImg0 = loadImage('./assets/minotaur/minotaur_dying_0.png');
+    minotaurDyingImg1 = loadImage('./assets/minotaur/minotaur_dying_1.png');
+    minotaurDyingImg2 = loadImage('./assets/minotaur/minotaur_dying_2.png');
+    minotaurDyingImg3 = loadImage('./assets/minotaur/minotaur_dying_3.png');
+    minotaurDyingImg4 = loadImage('./assets/minotaur/minotaur_dying_4.png');
+    minotaurDyingImg5 = loadImage('./assets/minotaur/minotaur_dying_5.png');
+    minotaurDyingImg6 = loadImage('./assets/minotaur/minotaur_dying_6.png');
+    minotaurDyingImg7 = loadImage('./assets/minotaur/minotaur_dying_7.png');
+    minotaurDyingImg8 = loadImage('./assets/minotaur/minotaur_dying_8.png');
+    minotaurDyingImg9 = loadImage('./assets/minotaur/minotaur_dying_9.png');
+    minotaurDyingImg10 = loadImage('./assets/minotaur/minotaur_dying_10.png');
+    minotaurDyingImg11 = loadImage('./assets/minotaur/minotaur_dying_11.png');
+    minotaurDyingImg12 = loadImage('./assets/minotaur/minotaur_dying_12.png');
+    minotaurDyingImg13 = loadImage('./assets/minotaur/minotaur_dying_13.png');
+    minotaurDyingImg14 = loadImage('./assets/minotaur/minotaur_dying_14.png');
 }
 
 function setup() {
@@ -773,6 +773,7 @@ function setup() {
     buttonRestart.hide();
 
     dice = dice1Img;
+    diceResult = 0;
 
     textFont(fontVT323);
 
@@ -834,6 +835,7 @@ function draw() {
                         playEnemySound();
                         isBattling = true;
                         dice = dice1Img;
+                        diceResult = 0;
                     }
     
                     if (battleIsFinished && !drankBeer) {
@@ -874,7 +876,7 @@ function draw() {
                         buttonNo.hide();
                     }
                 }
-    
+
             } else if (!enemyIsDead) {
                 if (!playerIsDead) {
     
