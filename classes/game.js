@@ -610,7 +610,7 @@ function preload() {
     beerImg = loadImage('./assets/beer.png');
     treasureImg = loadImage('./assets/treasure.png');
     //Easter Egg
-    batmanLogoImg = loadImage('../assets/batman_logo.png');
+    batmanLogoImg = loadImage('./assets/batman_logo.png');
     //Decisions
     mushroomImg = loadImage('./assets/mushroom.png');
     cauldronImg = loadImage('./assets/cauldron.png');
