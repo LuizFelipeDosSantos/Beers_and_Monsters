@@ -70,6 +70,7 @@ let attackDamage;
 
 let beerImg, treasureImg;
 let mushroomImg, cauldronImg, potionImg, bookImg;
+let batmanLogoImg;
 
 let drankBeer = false;
 let gameIsRunning = false;
@@ -87,6 +88,7 @@ let isDeciding = false;
 let decided = false;
 let decision;
 let showItem = true;
+let showBatmanEasterEgg = false;
 let animationIndex = -1;
 let diceResult;
 
@@ -98,6 +100,7 @@ function loadLevel() {
         case 1:
         case 1.5:
             background(forestImg);
+            batmanEasterEgg();
             isDecisionLevel = level === 1;
             if (!(enemy instanceof Orc)) {
                 enemy = new Orc(orcImg, player.x + 500, player.y, 180, 260);
@@ -117,6 +120,7 @@ function loadLevel() {
         case 2:
         case 2.5:
             background(ruinsImg);
+            batmanEasterEgg();
             isDecisionLevel = level === 2;
             if (!(enemy instanceof Troll)) {
                 enemy = new Troll(trollImg, player.x + 500, player.y - 100, 400, 350);
@@ -136,6 +140,7 @@ function loadLevel() {
         case 3:
         case 3.5:
             background(graveyardImg);
+            batmanEasterEgg();
             isDecisionLevel = level === 3;
             if (!(enemy instanceof Golem)) {
                 enemy = new Golem(golemImg, player.x + 500, player.y, 180, 260);
@@ -156,6 +161,7 @@ function loadLevel() {
         case 4:
         case 4.5:
             background(castleImg);
+            batmanEasterEgg();
             isDecisionLevel = level === 4;
             if (!(enemy instanceof Minotaur)) {
                 enemy = new Minotaur(minotaurImg, player.x + 500, player.y - 100, 400, 350);
@@ -176,6 +182,12 @@ function loadLevel() {
         default:
             level4BackgroundSound.stop();
             youWin();
+    }
+}
+
+function batmanEasterEgg() {
+    if (showBatmanEasterEgg) {
+        image(batmanLogoImg, 0, 0, 100, 100);
     }
 }
 
@@ -308,7 +320,7 @@ function gotBeer() {
 
 function drinkBeer() {
     if (level < 4) {
-        player.health = (player.health + 10) > 50 ? 50 : player.health + 10;
+        player.health = (player.health + 10) > 60 ? 60 : player.health + 10;
         beerSound.play();   
     } else {
         treasureSound.play();
@@ -473,7 +485,7 @@ function makeDecision() {
             rect(player.x - 10, 0, 700, 120);
             textSize(30);
             fill(255);
-            text('You found a cauldron with a soup.', player.x, 30);
+            text('You found a cauldron with soup.', player.x, 30);
             text('There is no one around and this can increase your health.', player.x, 60);
             text('Do you take some of the soup or not?', player.x, 90);
             break;
@@ -597,6 +609,8 @@ function preload() {
     //Beer and Treasure
     beerImg = loadImage('./assets/beer.png');
     treasureImg = loadImage('./assets/treasure.png');
+    //Easter Egg
+    batmanLogoImg = loadImage('../assets/batman_logo.png');
     //Decisions
     mushroomImg = loadImage('./assets/mushroom.png');
     cauldronImg = loadImage('./assets/cauldron.png');
@@ -815,6 +829,8 @@ function draw() {
                         player.draw();
                         showPlayerLife();
                     }
+                } else if (keyIsDown(66)) {
+                    showBatmanEasterEgg = true;
                 } else {
                     player.draw();
                     showPlayerLife();
@@ -895,7 +911,7 @@ function draw() {
                     //Enemy's Life
                     image(heartImg, enemy.x, enemy.y - 50, 32, 32);
                     fill(255);
-                    
+
                     let enemyHealthBar;
                     switch (enemy.constructor) {
                         case Orc:

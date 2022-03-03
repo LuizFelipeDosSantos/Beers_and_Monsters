@@ -1,17 +1,16 @@
 # Beers & Monsters
-Link Github https://github.com/LuizFelipeDosSantos/Beers_and_Monsters
-Link Deploy
+Link Github https://github.com/LuizFelipeDosSantos/Beers_and_Monsters/
+Link Deploy https://luizfelipedossantos.github.io/Beers_and_Monsters/
 
 ## Description
-Beers and Monsters is a turn-based RPG where your objective is to get the treasure in the cave.
+Beers and Monsters is a turn-based RPG where your objective is to get the Immortality Item in the cave.
 On the way you will meet monsters that tried to stop you.
 To fight them, you must use the attack button and roll the dice to see how hard you hit the enemy.
 When the enemy's health reaches 0 you've defeated him and you can go on your way.
-If your health reaches 0 you are dead and you didn't get the treasure.
+If your health reaches 0 you are dead and you didn't get the Immortality Item.
 
 ## MVP
-- in the left corner you have the map of the region;
-- in the right corner you have the battle;
+- in the screen you have the battle;
 - you duel with a monster.
 
 ## Backlog
@@ -24,13 +23,19 @@ If your health reaches 0 you are dead and you didn't get the treasure.
 - startGame();
 - setup();
 - draw();
-- Monster(health, strength) {}
+- Character(img, x, y, width, height, health, strength) {}
+    - draw();
     - attack();
     - receiveDamage();
-- Player(health, strength, items[]) {}
-    - attack();
-    - receiveDamage();
-    - useItem();
+    - isDead();
+- Player extends Character(img, x, y, width, height, health, strength, walkAnimation) {}
+    - moveLeft();
+    - moveRight();
+- Knight extends Player(img, x, y, width, height, walkAnimation) {}
+- Orc extends Character(img, x, y, width, height) {}
+- Troll extends Character(img, x, y, width, height) {}
+- Golem extends Character(img, x, y, width, height) {}
+- Minotaur extends Character(img, x, y, width, height) {}
 
 ## States y States Transitions
 Definition of the different states and their transition (transition functions)
@@ -54,10 +59,10 @@ Definition of the different states and their transition (transition functions)
 - game - drawCanvas
 - game - moveAroundTheMap
 - game - checkEnemy
-- game - duel
+- game - battle
 - game - GameOver
 - game - addEventListener
 
 ## Additional Links
 ### Slides
-Link Slides.com https://slides.com
+Link Slides.com https://slides.com/luizfelipedossantos-1/deck
