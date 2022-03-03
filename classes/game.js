@@ -1,4 +1,4 @@
-let level = 4.5;
+let level = 1;
 let turn = 0;
 let player;
 let knightImg;
