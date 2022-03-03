@@ -381,8 +381,6 @@ function playGameOverSound() {
 }
 
 function restartGame() {
-    //document.querySelector('.game-over').style.display = 'none';
-    //document.querySelector('.game-intro').style.display = 'initial';
     level = 1;
     turn = 0;
     drankBeer = false;
@@ -818,6 +816,7 @@ function draw() {
                     showPlayerLife();
                 }
                 
+                //Another level
                 if (player.x > width) {
                     level += 0.5;
                     player.x = initialX;
@@ -828,7 +827,6 @@ function draw() {
                 }
     
                 if (!isDecisionLevel) {
-    
                     if ((player.x > 300) && (!battleIsFinished)) {
                         enemy.x =  player.x + 500;
                         enemy.draw();
@@ -888,12 +886,7 @@ function draw() {
                         enemy.draw();
                     }
     
-                    //Player's Life
-                    image(heartImg, player.x, player.y - 50, 32, 32);
-                    fill(255);
-                    rect(player.x + 40, player.y - 50, knightHealthBarWidth, 20);   
-                    fill(255,0,0);
-                    rect(player.x + 40, player.y - 50, player.health * 5, 20);
+                    showPlayerLife();
     
                     //Enemy's Life
                     image(heartImg, enemy.x, enemy.y - 50, 32, 32);
@@ -950,7 +943,7 @@ function draw() {
                     //Dice
                     fill(255);
                     image(dice, player.x + 300, player.y, 100, 100);
-    
+
                     //Enemy's Life
                     image(heartImg, enemy.x, enemy.y - 50, 32, 32);
                     fill(255);
@@ -1036,9 +1029,4 @@ window.onload = () => {
     document.getElementById('start-button').onclick = () => {
         startGame();
     };
-
-    /*document.getElementById('restart-button').onclick = () => {
-        restartGame();
-    };*/
-
 };
