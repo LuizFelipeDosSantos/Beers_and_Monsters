@@ -21,8 +21,35 @@ If your health reaches 0 you are dead and you didn't get the Immortality Item.
 ## Data structure
 ### game.js
 - startGame();
+- preload();
 - setup();
 - draw();
+- loadLevel();
+- rollDice();
+- showDamage();
+- playerAttack();
+- enemyAttack();
+- gotBeer();
+- drinkBeer();
+- gotItem();
+- getDecisionItem();
+- showPlayerLife();
+- playFootstepSound();
+- playEnemySound();
+- playEnemyAttackSound();
+- playKnightAttackSound();
+- playWinSound();
+- playGameOverSound();
+- restartGame();
+- youWin();
+- youLose();
+- decisionYes();
+- decisionNo();
+- makeDecision();
+- itemResult();
+- batmanEasterEgg()
+
+### characters.js
 - Character(img, x, y, width, height, health, strength) {}
     - draw();
     - attack();
