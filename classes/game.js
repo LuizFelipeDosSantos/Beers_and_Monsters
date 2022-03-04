@@ -323,6 +323,7 @@ function drinkBeer() {
         player.health = (player.health + 10) > 60 ? 60 : player.health + 10;
         beerSound.play();   
     } else {
+        player.health = 60;
         treasureSound.play();
     }
     drankBeer = true;
@@ -422,7 +423,7 @@ function youWin() {
     fill(255);
     textSize(40);
     text('Congratulations!', 480, 150);
-    text('You found the beer of immortality!', 480, 200);
+    text('You found the Beer of Immortality!', 480, 200);
 
     buttonRestart.position(600, 300);
     buttonRestart.show();
