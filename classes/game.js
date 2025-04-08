@@ -2,12 +2,9 @@ let level = 1;
 let turn = 0;
 let player;
 let knightImg;
-let knightWalkImg0, knightWalkImg1, knightWalkImg2, knightWalkImg3, knightWalkImg4,
-    knightWalkImg5, knightWalkImg6, knightWalkImg7, knightWalkImg8, knightWalkImg9;
-let knightAttackImg0, knightAttackImg1, knightAttackImg2, knightAttackImg3, knightAttackImg4,
-    knightAttackImg5, knightAttackImg6, knightAttackImg7, knightAttackImg8, knightAttackImg9;
-let knightDyingImg0, knightDyingImg1, knightDyingImg2, knightDyingImg3, knightDyingImg4,
-    knightDyingImg5, knightDyingImg6, knightDyingImg7, knightDyingImg8, knightDyingImg9;
+let knightWalkImgs = [];
+let knightAttackImgs = [];
+let knightDyingImgs = [];
 let knightHealthBarWidth = 300;
 
 let playerAttackAnimation = [];
@@ -15,34 +12,23 @@ let playerDyingAnimation = [];
 
 let enemy;
 let orcImg;
-let orcAttackImg0, orcAttackImg1, orcAttackImg2, orcAttackImg3, orcAttackImg4, orcAttackImg5,
-    orcAttackImg6, orcAttackImg7, orcAttackImg8, orcAttackImg9, orcAttackImg10, orcAttackImg11;
-let orcDyingImg0, orcDyingImg1, orcDyingImg2, orcDyingImg3, orcDyingImg4, orcDyingImg5,
-    orcDyingImg6, orcDyingImg7, orcDyingImg8, orcDyingImg9, orcDyingImg10, orcDyingImg11,
-    orcDyingImg12, orcDyingImg13, orcDyingImg14;
+let orcAttackImgs = [];
+let orcDyingImgs = [];
 let orcHealthBarWidth = 200;
 
 let trollImg;
-let trollAttackImg0, trollAttackImg1, trollAttackImg2, trollAttackImg3, trollAttackImg4,
-    trollAttackImg5, trollAttackImg6, trollAttackImg7, trollAttackImg8, trollAttackImg9;
-let trollDyingImg0, trollDyingImg1, trollDyingImg2, trollDyingImg3, trollDyingImg4,
-    trollDyingImg5, trollDyingImg6, trollDyingImg7, trollDyingImg8, trollDyingImg9;
+let trollAttackImgs = [];
+let trollDyingImgs = [];
 let trollHealthBarWidth = 250;
 
 let golemImg;
-let golemAttackImg0, golemAttackImg1, golemAttackImg2, golemAttackImg3, golemAttackImg4, golemAttackImg5,
-    golemAttackImg6, golemAttackImg7, golemAttackImg8, golemAttackImg9, golemAttackImg10, golemAttackImg11;
-let golemDyingImg0, golemDyingImg1, golemDyingImg2, golemDyingImg3, golemDyingImg4, golemDyingImg5,
-    golemDyingImg6, golemDyingImg7, golemDyingImg8, golemDyingImg9, golemDyingImg10, golemDyingImg11,
-    golemDyingImg12, golemDyingImg13, golemDyingImg14;
+let golemAttackImgs = [];
+let golemDyingImgs = [];
 let golemHealthBarWidth = 300;
 
 let minotaurImg;
-let minotaurAttackImg0, minotaurAttackImg1, minotaurAttackImg2, minotaurAttackImg3, minotaurAttackImg4, minotaurAttackImg5,
-    minotaurAttackImg6, minotaurAttackImg7, minotaurAttackImg8, minotaurAttackImg9, minotaurAttackImg10, minotaurAttackImg11;
-let minotaurDyingImg0, minotaurDyingImg1, minotaurDyingImg2, minotaurDyingImg3, minotaurDyingImg4, minotaurDyingImg5,
-    minotaurDyingImg6, minotaurDyingImg7, minotaurDyingImg8, minotaurDyingImg9, minotaurDyingImg10, minotaurDyingImg11,
-    minotaurDyingImg12, minotaurDyingImg13, minotaurDyingImg14;
+let minotaurAttackImgs = [];
+let minotaurDyingImgs = [];
 let minotaurHealthBarWidth = 350;
 
 let enemyAttackAnimation = [];
@@ -65,7 +51,7 @@ let mushroomSound, cauldronSound, potionSound, bookSound;
 let winSound, gameoverSound;
 let countSoundControl = 0;
 
-let buttonAttack, buttonEnemyAttack, buttonYes, buttonNo, buttonRestart; 
+let buttonAttack, buttonEnemyAttack, buttonYes, buttonNo, buttonRestart;
 let attackDamage;
 
 let beerImg, treasureImg;
@@ -104,11 +90,8 @@ function loadLevel() {
             isDecisionLevel = level === 1;
             if (!(enemy instanceof Orc)) {
                 enemy = new Orc(orcImg, player.x + 500, player.y, 180, 260);
-                enemyAttackAnimation = [orcAttackImg0, orcAttackImg1, orcAttackImg2, orcAttackImg3, orcAttackImg4, orcAttackImg5,
-                                        orcAttackImg6, orcAttackImg7, orcAttackImg8, orcAttackImg9, orcAttackImg10, orcAttackImg11];
-                enemyDyingAnimation = [orcDyingImg0, orcDyingImg1, orcDyingImg2, orcDyingImg3, orcDyingImg4, orcDyingImg5,
-                                       orcDyingImg6, orcDyingImg7, orcDyingImg8, orcDyingImg9, orcDyingImg10, orcDyingImg11,
-                                       orcDyingImg12, orcDyingImg13, orcDyingImg14];
+                enemyAttackAnimation = orcAttackImgs;
+                enemyDyingAnimation = orcDyingImgs;
                 levelFootstepSound = level1FootstepSound;
                 levelEnemySound = level1EnemySound;
                 levelEnemyAttackSound = level1EnemyAttackSound;
@@ -124,10 +107,8 @@ function loadLevel() {
             isDecisionLevel = level === 2;
             if (!(enemy instanceof Troll)) {
                 enemy = new Troll(trollImg, player.x + 500, player.y - 100, 400, 350);
-                enemyAttackAnimation = [trollAttackImg0, trollAttackImg1, trollAttackImg2, trollAttackImg3, trollAttackImg4,
-                                        trollAttackImg5, trollAttackImg6, trollAttackImg7, trollAttackImg8, trollAttackImg9];
-                enemyDyingAnimation = [trollDyingImg0, trollDyingImg1, trollDyingImg2, trollDyingImg3, trollDyingImg4,
-                                       trollDyingImg5, trollDyingImg6, trollDyingImg7, trollDyingImg8, trollDyingImg9];
+                enemyAttackAnimation = trollAttackImgs;
+                enemyDyingAnimation = trollDyingImgs;
                 levelFootstepSound = level2FootstepSound;
                 levelEnemySound = level2EnemySound;
                 levelEnemyAttackSound = level2EnemyAttackSound;
@@ -144,11 +125,8 @@ function loadLevel() {
             isDecisionLevel = level === 3;
             if (!(enemy instanceof Golem)) {
                 enemy = new Golem(golemImg, player.x + 500, player.y, 180, 260);
-                enemyAttackAnimation = [golemAttackImg0, golemAttackImg1, golemAttackImg2, golemAttackImg3, golemAttackImg4, golemAttackImg5,
-                                        golemAttackImg6, golemAttackImg7, golemAttackImg8, golemAttackImg9, golemAttackImg10, golemAttackImg11];
-                enemyDyingAnimation = [golemDyingImg0, golemDyingImg1, golemDyingImg2, golemDyingImg3, golemDyingImg4, golemDyingImg5,
-                                       golemDyingImg6, golemDyingImg7, golemDyingImg8, golemDyingImg9, golemDyingImg10, golemDyingImg11,
-                                       golemDyingImg12, golemDyingImg13, golemDyingImg14];
+                enemyAttackAnimation = golemAttackImgs;
+                enemyDyingAnimation = golemDyingImgs;
                 levelFootstepSound = level3FootstepSound;
                 levelEnemySound = level3EnemySound;
                 levelEnemyAttackSound = level3EnemyAttackSound;
@@ -165,11 +143,8 @@ function loadLevel() {
             isDecisionLevel = level === 4;
             if (!(enemy instanceof Minotaur)) {
                 enemy = new Minotaur(minotaurImg, player.x + 500, player.y - 100, 400, 350);
-                enemyAttackAnimation = [minotaurAttackImg0, minotaurAttackImg1, minotaurAttackImg2, minotaurAttackImg3, minotaurAttackImg4, minotaurAttackImg5,
-                                        minotaurAttackImg6, minotaurAttackImg7, minotaurAttackImg8, minotaurAttackImg9, minotaurAttackImg10, minotaurAttackImg11];
-                enemyDyingAnimation = [minotaurDyingImg0, minotaurDyingImg1, minotaurDyingImg2, minotaurDyingImg3, minotaurDyingImg4, minotaurDyingImg5,
-                                       minotaurDyingImg6, minotaurDyingImg7, minotaurDyingImg8, minotaurDyingImg9, minotaurDyingImg10, minotaurDyingImg11,
-                                       minotaurDyingImg12, minotaurDyingImg13, minotaurDyingImg14];
+                enemyAttackAnimation = minotaurAttackImgs;
+                enemyDyingAnimation = minotaurDyingImgs;
                 levelFootstepSound = level4FootstepSound;
                 levelEnemySound = level4EnemySound;
                 levelEnemyAttackSound = level4EnemyAttackSound;
@@ -235,9 +210,9 @@ function playerAttack() {
 
         fill(255);
         image(dice, player.x + 300, player.y, 100, 100);
-    
+
         attackDamage = player.attack() * diceResult;
-    
+
         if (animationIndex < 0) {
             animationIndex = 0;
             animationPlayerAttackIsRunning = true;
@@ -266,21 +241,21 @@ function playerAttack() {
             enemyIsDead = true;
         } else {
             turn = 1;
-        }    
+        }
     }
 }
 
 function enemyAttack() {
     if (!animationEnemyAttackIsRunning) {
         diceResult = rollDice()
-    
+
         showDamage();
-        
+
         fill(255);
         image(dice, player.x + 300, player.y, 100, 100);
-    
+
         attackDamage = enemy.attack() * diceResult;
-        
+
         if (animationIndex < 0) {
             animationIndex = 0;
             animationEnemyAttackIsRunning = true;
@@ -300,7 +275,7 @@ function enemyAttack() {
             animationIndex++;
         }
     }
-    
+
     if (!animationEnemyAttackIsRunning) {
         player.receiveDamage(attackDamage);
 
@@ -321,7 +296,7 @@ function gotBeer() {
 function drinkBeer() {
     if (level < 4) {
         player.health = (player.health + 10) > 60 ? 60 : player.health + 10;
-        beerSound.play();   
+        beerSound.play();
     } else {
         player.health = 60;
         treasureSound.play();
@@ -358,7 +333,7 @@ function getDecisionItem() {
 function showPlayerLife() {
     image(heartImg, player.x, player.y - 50, 32, 32);
     fill(255);
-    rect(player.x + 40, player.y - 50, knightHealthBarWidth, 20);   
+    rect(player.x + 40, player.y - 50, knightHealthBarWidth, 20);
     fill(255,0,0);
     rect(player.x + 40, player.y - 50, player.health * 5, 20);
 }
@@ -536,7 +511,7 @@ function itemResult() {
             rect(400 - 10, 0, 550, 90);
             textSize(30);
             textStyle(BOLD);
-            fill(255);            
+            fill(255);
             text('Luckily it was just a health potion anyway.', 400, 30);
             text('You have increased your health.', 400, 60);
             break;
@@ -617,148 +592,40 @@ function preload() {
     cauldronImg = loadImage('./assets/cauldron.png');
     potionImg = loadImage('./assets/potion.png');
     bookImg = loadImage('./assets/book.png');
+
     //Animations
-    knightWalkImg0 = loadImage('./assets/knight/knight_walk_0.png');
-    knightWalkImg1 = loadImage('./assets/knight/knight_walk_1.png');
-    knightWalkImg2 = loadImage('./assets/knight/knight_walk_2.png');
-    knightWalkImg3 = loadImage('./assets/knight/knight_walk_3.png');
-    knightWalkImg4 = loadImage('./assets/knight/knight_walk_4.png');
-    knightWalkImg5 = loadImage('./assets/knight/knight_walk_5.png');
-    knightWalkImg6 = loadImage('./assets/knight/knight_walk_6.png');
-    knightWalkImg7 = loadImage('./assets/knight/knight_walk_7.png');
-    knightWalkImg8 = loadImage('./assets/knight/knight_walk_8.png');
-    knightWalkImg9 = loadImage('./assets/knight/knight_walk_9.png');
 
-    knightAttackImg0 = loadImage('./assets/knight/knight_attack_0.png');
-    knightAttackImg1 = loadImage('./assets/knight/knight_attack_1.png');
-    knightAttackImg2 = loadImage('./assets/knight/knight_attack_2.png');
-    knightAttackImg3 = loadImage('./assets/knight/knight_attack_3.png');
-    knightAttackImg4 = loadImage('./assets/knight/knight_attack_4.png');
-    knightAttackImg5 = loadImage('./assets/knight/knight_attack_5.png');
-    knightAttackImg6 = loadImage('./assets/knight/knight_attack_6.png');
-    knightAttackImg7 = loadImage('./assets/knight/knight_attack_7.png');
-    knightAttackImg8 = loadImage('./assets/knight/knight_attack_8.png');
-    knightAttackImg9 = loadImage('./assets/knight/knight_attack_9.png');
+    //Knight
+    for (let i = 0; i < 10; i++)
+      knightWalkImgs.push(loadImage(`./assets/knight/knight_walk_${i}.png`));
+    for (let i = 0; i < 10; i++)
+      knightAttackImgs.push(loadImage(`./assets/knight/knight_attack_${i}.png`));
+    for (let i = 0; i < 10; i++)
+      knightDyingImgs.push(loadImage(`./assets/knight/knight_die_${i}.png`));
 
-    knightDyingImg0 = loadImage('./assets/knight/knight_die_0.png');
-    knightDyingImg1 = loadImage('./assets/knight/knight_die_1.png');
-    knightDyingImg2 = loadImage('./assets/knight/knight_die_2.png');
-    knightDyingImg3 = loadImage('./assets/knight/knight_die_3.png');
-    knightDyingImg4 = loadImage('./assets/knight/knight_die_4.png');
-    knightDyingImg5 = loadImage('./assets/knight/knight_die_5.png');
-    knightDyingImg6 = loadImage('./assets/knight/knight_die_6.png');
-    knightDyingImg7 = loadImage('./assets/knight/knight_die_7.png');
-    knightDyingImg8 = loadImage('./assets/knight/knight_die_8.png');
-    knightDyingImg9 = loadImage('./assets/knight/knight_die_9.png');
+    //Orc
+    for (let i = 0; i < 12; i++)
+      orcAttackImgs.push(loadImage(`./assets/orc/orc_attack_${i}.png`));
+    for (let i = 0; i < 15; i++)
+      orcDyingImgs.push(loadImage(`./assets/orc/orc_dying_${i}.png`));
 
-    orcAttackImg0 = loadImage('./assets/orc/orc_attack_0.png');
-    orcAttackImg1 = loadImage('./assets/orc/orc_attack_1.png');
-    orcAttackImg2 = loadImage('./assets/orc/orc_attack_2.png');
-    orcAttackImg3 = loadImage('./assets/orc/orc_attack_3.png');
-    orcAttackImg4 = loadImage('./assets/orc/orc_attack_4.png');
-    orcAttackImg5 = loadImage('./assets/orc/orc_attack_5.png');
-    orcAttackImg6 = loadImage('./assets/orc/orc_attack_6.png');
-    orcAttackImg7 = loadImage('./assets/orc/orc_attack_7.png');
-    orcAttackImg8 = loadImage('./assets/orc/orc_attack_8.png');
-    orcAttackImg9 = loadImage('./assets/orc/orc_attack_9.png');
-    orcAttackImg10 = loadImage('./assets/orc/orc_attack_10.png');
-    orcAttackImg11 = loadImage('./assets/orc/orc_attack_11.png');
+    //Troll
+    for (let i = 0; i < 10; i++)
+      trollAttackImgs.push(loadImage(`./assets/troll/troll_attack_${i}.png`));
+    for (let i = 0; i < 10; i++)
+      trollDyingImgs.push(loadImage(`./assets/troll/troll_dying_${i}.png`));
 
-    orcDyingImg0 = loadImage('./assets/orc/orc_dying_0.png');
-    orcDyingImg1 = loadImage('./assets/orc/orc_dying_1.png');
-    orcDyingImg2 = loadImage('./assets/orc/orc_dying_2.png');
-    orcDyingImg3 = loadImage('./assets/orc/orc_dying_3.png');
-    orcDyingImg4 = loadImage('./assets/orc/orc_dying_4.png');
-    orcDyingImg5 = loadImage('./assets/orc/orc_dying_5.png');
-    orcDyingImg6 = loadImage('./assets/orc/orc_dying_6.png');
-    orcDyingImg7 = loadImage('./assets/orc/orc_dying_7.png');
-    orcDyingImg8 = loadImage('./assets/orc/orc_dying_8.png');
-    orcDyingImg9 = loadImage('./assets/orc/orc_dying_9.png');
-    orcDyingImg10 = loadImage('./assets/orc/orc_dying_10.png');
-    orcDyingImg11 = loadImage('./assets/orc/orc_dying_11.png');
-    orcDyingImg12 = loadImage('./assets/orc/orc_dying_12.png');
-    orcDyingImg13 = loadImage('./assets/orc/orc_dying_13.png');
-    orcDyingImg14 = loadImage('./assets/orc/orc_dying_14.png');
+    //Golem
+    for (let i = 0; i < 12; i++)
+      golemAttackImgs.push(loadImage(`./assets/golem/golem_attack_${i}.png`));
+    for (let i = 0; i < 15; i++)
+      golemDyingImgs.push(loadImage(`./assets/golem/golem_dying_${i}.png`));
 
-    trollAttackImg0 = loadImage('./assets/troll/troll_attack_0.png');
-    trollAttackImg1 = loadImage('./assets/troll/troll_attack_1.png');
-    trollAttackImg2 = loadImage('./assets/troll/troll_attack_2.png');
-    trollAttackImg3 = loadImage('./assets/troll/troll_attack_3.png');
-    trollAttackImg4 = loadImage('./assets/troll/troll_attack_4.png');
-    trollAttackImg5 = loadImage('./assets/troll/troll_attack_5.png');
-    trollAttackImg6 = loadImage('./assets/troll/troll_attack_6.png');
-    trollAttackImg7 = loadImage('./assets/troll/troll_attack_7.png');
-    trollAttackImg8 = loadImage('./assets/troll/troll_attack_8.png');
-    trollAttackImg9 = loadImage('./assets/troll/troll_attack_9.png');
-
-    trollDyingImg0 = loadImage('./assets/troll/troll_dying_0.png');
-    trollDyingImg1 = loadImage('./assets/troll/troll_dying_1.png');
-    trollDyingImg2 = loadImage('./assets/troll/troll_dying_2.png');
-    trollDyingImg3 = loadImage('./assets/troll/troll_dying_3.png');
-    trollDyingImg4 = loadImage('./assets/troll/troll_dying_4.png');
-    trollDyingImg5 = loadImage('./assets/troll/troll_dying_5.png');
-    trollDyingImg6 = loadImage('./assets/troll/troll_dying_6.png');
-    trollDyingImg7 = loadImage('./assets/troll/troll_dying_7.png');
-    trollDyingImg8 = loadImage('./assets/troll/troll_dying_8.png');
-    trollDyingImg9 = loadImage('./assets/troll/troll_dying_9.png');
-
-    golemAttackImg0 = loadImage('./assets/golem/golem_attack_0.png');
-    golemAttackImg1 = loadImage('./assets/golem/golem_attack_1.png');
-    golemAttackImg2 = loadImage('./assets/golem/golem_attack_2.png');
-    golemAttackImg3 = loadImage('./assets/golem/golem_attack_3.png');
-    golemAttackImg4 = loadImage('./assets/golem/golem_attack_4.png');
-    golemAttackImg5 = loadImage('./assets/golem/golem_attack_5.png');
-    golemAttackImg6 = loadImage('./assets/golem/golem_attack_6.png');
-    golemAttackImg7 = loadImage('./assets/golem/golem_attack_7.png');
-    golemAttackImg8 = loadImage('./assets/golem/golem_attack_8.png');
-    golemAttackImg9 = loadImage('./assets/golem/golem_attack_9.png');
-    golemAttackImg10 = loadImage('./assets/golem/golem_attack_10.png');
-    golemAttackImg11 = loadImage('./assets/golem/golem_attack_11.png');
-
-    golemDyingImg0 = loadImage('./assets/golem/golem_dying_0.png');
-    golemDyingImg1 = loadImage('./assets/golem/golem_dying_1.png');
-    golemDyingImg2 = loadImage('./assets/golem/golem_dying_2.png');
-    golemDyingImg3 = loadImage('./assets/golem/golem_dying_3.png');
-    golemDyingImg4 = loadImage('./assets/golem/golem_dying_4.png');
-    golemDyingImg5 = loadImage('./assets/golem/golem_dying_5.png');
-    golemDyingImg6 = loadImage('./assets/golem/golem_dying_6.png');
-    golemDyingImg7 = loadImage('./assets/golem/golem_dying_7.png');
-    golemDyingImg8 = loadImage('./assets/golem/golem_dying_8.png');
-    golemDyingImg9 = loadImage('./assets/golem/golem_dying_9.png');
-    golemDyingImg10 = loadImage('./assets/golem/golem_dying_10.png');
-    golemDyingImg11 = loadImage('./assets/golem/golem_dying_11.png');
-    golemDyingImg12 = loadImage('./assets/golem/golem_dying_12.png');
-    golemDyingImg13 = loadImage('./assets/golem/golem_dying_13.png');
-    golemDyingImg14 = loadImage('./assets/golem/golem_dying_14.png');
-
-    minotaurAttackImg0 = loadImage('./assets/minotaur/minotaur_attack_0.png');
-    minotaurAttackImg1 = loadImage('./assets/minotaur/minotaur_attack_1.png');
-    minotaurAttackImg2 = loadImage('./assets/minotaur/minotaur_attack_2.png');
-    minotaurAttackImg3 = loadImage('./assets/minotaur/minotaur_attack_3.png');
-    minotaurAttackImg4 = loadImage('./assets/minotaur/minotaur_attack_4.png');
-    minotaurAttackImg5 = loadImage('./assets/minotaur/minotaur_attack_5.png');
-    minotaurAttackImg6 = loadImage('./assets/minotaur/minotaur_attack_6.png');
-    minotaurAttackImg7 = loadImage('./assets/minotaur/minotaur_attack_7.png');
-    minotaurAttackImg8 = loadImage('./assets/minotaur/minotaur_attack_8.png');
-    minotaurAttackImg9 = loadImage('./assets/minotaur/minotaur_attack_9.png');
-    minotaurAttackImg10 = loadImage('./assets/minotaur/minotaur_attack_10.png');
-    minotaurAttackImg11 = loadImage('./assets/minotaur/minotaur_attack_11.png');
-
-    minotaurDyingImg0 = loadImage('./assets/minotaur/minotaur_dying_0.png');
-    minotaurDyingImg1 = loadImage('./assets/minotaur/minotaur_dying_1.png');
-    minotaurDyingImg2 = loadImage('./assets/minotaur/minotaur_dying_2.png');
-    minotaurDyingImg3 = loadImage('./assets/minotaur/minotaur_dying_3.png');
-    minotaurDyingImg4 = loadImage('./assets/minotaur/minotaur_dying_4.png');
-    minotaurDyingImg5 = loadImage('./assets/minotaur/minotaur_dying_5.png');
-    minotaurDyingImg6 = loadImage('./assets/minotaur/minotaur_dying_6.png');
-    minotaurDyingImg7 = loadImage('./assets/minotaur/minotaur_dying_7.png');
-    minotaurDyingImg8 = loadImage('./assets/minotaur/minotaur_dying_8.png');
-    minotaurDyingImg9 = loadImage('./assets/minotaur/minotaur_dying_9.png');
-    minotaurDyingImg10 = loadImage('./assets/minotaur/minotaur_dying_10.png');
-    minotaurDyingImg11 = loadImage('./assets/minotaur/minotaur_dying_11.png');
-    minotaurDyingImg12 = loadImage('./assets/minotaur/minotaur_dying_12.png');
-    minotaurDyingImg13 = loadImage('./assets/minotaur/minotaur_dying_13.png');
-    minotaurDyingImg14 = loadImage('./assets/minotaur/minotaur_dying_14.png');
+    //Minotaur
+    for (let i = 0; i < 12; i++)
+      minotaurAttackImgs.push(loadImage(`./assets/minotaur/minotaur_attack_${i}.png`));
+    for (let i = 0; i < 15; i++)
+      minotaurDyingImgs.push(loadImage(`./assets/minotaur/minotaur_dying_${i}.png`));
 }
 
 function setup() {
@@ -796,7 +663,7 @@ function setup() {
 
     noLoop();
 }
-  
+
 function draw() {
     if (gameIsRunning) {
         loadLevel();
@@ -836,7 +703,7 @@ function draw() {
                     player.draw();
                     showPlayerLife();
                 }
-                
+
                 //Another level
                 if (player.x > width) {
                     level += 0.5;
@@ -846,7 +713,7 @@ function draw() {
                     showItem = true;
                     decided = false;
                 }
-    
+
                 if (!isDecisionLevel) {
                     if ((player.x > 300) && (!battleIsFinished)) {
                         enemy.x =  player.x + 500;
@@ -856,7 +723,7 @@ function draw() {
                         dice = dice1Img;
                         diceResult = 0;
                     }
-    
+
                     if (battleIsFinished && !drankBeer) {
                         if (level === 4.5) {
                             image(treasureImg, enemy.x, initialY + player.height - 150, 150, 150);
@@ -864,7 +731,7 @@ function draw() {
                             image(beerImg, enemy.x, initialY + player.height - 100, 100, 100);
                         }
                     }
-    
+
                 } else {
                     if (showItem) {
                         switch (level) {
@@ -889,7 +756,7 @@ function draw() {
                         buttonYes.position(player.x + player.width + 50, 170);
                         buttonYes.show();
                         buttonNo.position(player.x + player.width + 200, 170);
-                        buttonNo.show();        
+                        buttonNo.show();
                     } else {
                         buttonYes.hide();
                         buttonNo.hide();
@@ -898,7 +765,7 @@ function draw() {
 
             } else if (!enemyIsDead) {
                 if (!playerIsDead) {
-    
+
                     if (!animationPlayerAttackIsRunning) {
                         player.draw();
                         showPlayerLife();
@@ -906,9 +773,9 @@ function draw() {
                     if (!animationEnemyAttackIsRunning) {
                         enemy.draw();
                     }
-    
+
                     showPlayerLife();
-    
+
                     //Enemy's Life
                     image(heartImg, enemy.x, enemy.y - 50, 32, 32);
                     fill(255);
@@ -928,16 +795,16 @@ function draw() {
                             enemyHealthBar = minotaurHealthBarWidth;
                     }
                     rect(enemy.x + 40, enemy.y - 50, enemyHealthBar, 20);
-    
+
                     fill(255,0,0);
                     rect(enemy.x + 40, enemy.y - 50, enemy.health * 5, 20);
-    
+
                     showDamage();
 
                     //Dice
                     fill(255);
                     image(dice, player.x + 300, player.y, 100, 100);
-    
+
                     //Player's Turn
                     if (turn === 0) {
                         buttonAttack.position(player.x + 20, player.y + 320);
@@ -962,9 +829,9 @@ function draw() {
                     }
                 } else {
                     enemy.draw();
-    
+
                     showDamage();
-            
+
                     //Dice
                     fill(255);
                     image(dice, player.x + 300, player.y, 100, 100);
@@ -972,15 +839,15 @@ function draw() {
                     //Enemy's Life
                     image(heartImg, enemy.x, enemy.y - 50, 32, 32);
                     fill(255);
-    
+
                     if (animationIndex < 0) {
                         animationIndex = 0;
                         animationPlayerDyingIsRunning = true;
                         frameRate(20);
-    
+
                         playGameOverSound();
                     }
-    
+
                     if (animationIndex >= 0){
                         if (animationIndex >= playerDyingAnimation.length) {
                             animationPlayerDyingIsRunning = false;
@@ -996,19 +863,19 @@ function draw() {
             } else if (enemyIsDead) {
                 player.draw();
                 showPlayerLife();
-    
+
                 showDamage();
 
                 //Dice
                 fill(255);
                 image(dice, player.x + 300, player.y, 100, 100);
-    
+
                 if (animationIndex < 0) {
                     animationIndex = 0;
                     animationEnemyDyingIsRunning = true;
                     frameRate(20);
                 }
-    
+
                 if (animationIndex >= 0){
                     if (animationIndex >= enemyDyingAnimation.length) {
                         animationEnemyDyingIsRunning = false;
@@ -1019,7 +886,7 @@ function draw() {
                         animationIndex++;
                     }
                 }
-    
+
                 if (!animationEnemyDyingIsRunning) {
                     buttonAttack.hide();
                     buttonEnemyAttack.hide();
@@ -1037,12 +904,9 @@ function startGame() {
     document.querySelector('#game-board-div').style.display = 'initial';
     gameIsRunning = true;
 
-    playerAttackAnimation = [knightAttackImg0, knightAttackImg1, knightAttackImg2, knightAttackImg3, knightAttackImg4,
-                             knightAttackImg5, knightAttackImg6, knightAttackImg7, knightAttackImg8, knightAttackImg9];
-    const knightWalkAnimation = [knightWalkImg0, knightWalkImg1, knightWalkImg2, knightWalkImg3, knightWalkImg4,
-                                 knightWalkImg5, knightWalkImg6, knightWalkImg7, knightWalkImg8, knightWalkImg9];
-    playerDyingAnimation = [knightDyingImg0, knightDyingImg1, knightDyingImg2, knightDyingImg3, knightDyingImg4,
-                            knightDyingImg5, knightDyingImg6, knightDyingImg7, knightDyingImg8, knightDyingImg9];
+    playerAttackAnimation = knightAttackImgs;
+    const knightWalkAnimation = knightWalkImgs;
+    playerDyingAnimation = knightDyingImgs;
     player = new Knight(knightImg, initialX, initialY, 300, 250, knightWalkAnimation);
 
     buttonRestart.hide();
